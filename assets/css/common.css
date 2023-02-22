@@ -1,0 +1,64 @@
+
+@font-face {font-family: 'Noto Sans KR'; src: url(../font/NotoSansThin.woff) format("woff"); font-weight: 100; font-style: normal;unicode-range: U+AC00-D7A3;}
+@font-face {font-family: 'Noto Sans KR'; src: url(../font/NotoSansLight.woff) format("woff"); font-weight: 300; font-style: normal;unicode-range: U+AC00-D7A3;}
+@font-face {font-family: 'Noto Sans KR'; src: url(../font/NotoSansRegular.woff) format("woff"); font-weight: 400; font-style: normal;unicode-range: U+AC00-D7A3;}
+@font-face {font-family: 'Noto Sans KR'; src: url(../font/NotoSansMedium.woff) format("woff"); font-weight: 500; font-style: normal;unicode-range: U+AC00-D7A3;}
+@font-face {font-family: 'Noto Sans KR'; src: url(../font/NotoSansBold.woff) format("woff"); font-weight: 700; font-style: normal;unicode-range: U+AC00-D7A3;}
+@font-face {font-family: 'Noto Sans KR'; src: url(../font/NotoSansBlack.woff) format("woff"); font-weight: 900; font-style: normal;unicode-range: U+AC00-D7A3;}
+
+@font-face {font-family: 'Shantell Sans'; src: url(../font/ShantellSans-Light.woff) format("woff"); font-weight: 300; font-style: normal;unicode-range: U+0061-007A, U+0041-005A, U+0030-0039;}
+@font-face {font-family: 'Shantell Sans'; src: url(../font/ShantellSans-Regular.woff) format("woff"); font-weight: 400; font-style: normal;unicode-range: U+0061-007A, U+0041-005A, U+0030-0039;}
+@font-face {font-family: 'Shantell Sans'; src: url(../font/ShantellSans-Medium.woff) format("woff"); font-weight: 500; font-style: normal;unicode-range: U+0061-007A, U+0041-005A, U+0030-0039;}
+@font-face {font-family: 'Shantell Sans'; src: url(../font/ShantellSans-Bold.woff) format("woff"); font-weight: 700; font-style: normal;unicode-range: U+0061-007A, U+0041-005A, U+0030-0039;}
+@font-face {font-family: 'Shantell Sans'; src: url(../font/ShantellSans-ExtraBold.woff) format("woff"); font-weight: 900; font-style: normal;unicode-range: U+0061-007A, U+0041-005A, U+0030-0039;}
+
+body {font-family: 'Noto Sans KR', 'Shantell Sans', sans-serif;font-weight: 300;font-style: normal;}
+    
+.fs-01 {font-size: 80px;}
+.fs-02 {font-size: 60px;}
+.fs-03 {font-size: 40px;}
+.fs-04 {font-size: 24px;}
+.fs-05 {font-size: 18px;}
+.fs-06 {font-size: 20px;}
+.fs-07 {font-size: 18px;}
+.fs-08 {font-size: 16px;}
+.fs-09 {font-size: 14px;}
+
+.fw-300 {font-weight: 300;}
+.fw-400 {font-weight: 400;}
+.fw-500 {font-weight: 500;}
+.fw-500 {font-weight: 700;}
+.fw-900 {font-weight: 900;}
+
+header {position: fixed;top: 0;left: 0;display: flex;justify-content: space-between;align-items: center;width: 100%;height: 100px;padding: 0 80px;box-sizing: border-box;transition: background-color .3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform .5s cubic-bezier(0.78, -0.01, 0.68, 0.66);z-index: 1000}
+header .logo {flex: 1;}
+header .logo svg {display: block;width: 84px;fill: #fff;}
+header .utils {display: flex;align-items: center;justify-content: flex-end;flex: 1;}
+header .utils > a {position: relative;margin-right: 50px;color: #fff;}
+header .utils > a:after {content: '';position: absolute;top: 50%;right: -25px;transform: translateY(-50%);width: 1px;height: 14px;background-color: #fff;}
+header .utils > a:nth-of-type(2) {display: flex;align-items: center;}
+header .utils > a:nth-of-type(2) svg {width: 15px;height: 15px;margin: 3px 5px 0 0}
+
+header.whiter {background-color: #fff;}
+header.whiter .logo svg, header.active .logo svg {fill: black;}
+header.whiter .gnb-menu-list, header.active .gnb-menu-list {color: black;}
+header.whiter .utils > a, header.active .utils > a {color: black;}
+header.whiter .utils > a:after, header.active .utils > a:after {background-color: black;}
+header.whiter .utils > a:nth-of-type(2) svg .st1, header.active .utils > a:nth-of-type(2) svg .st1 {fill: black;}
+header.whiter .utils .search-area svg, header.active .utils .search-area svg {fill: black;}
+header.active {background-color: #fff;}
+header.hide {transform: translate3d(0, -100%, 0);}
+
+header .gnb {height: 100%;}
+header .gnb-menu-bg {position:absolute;top: 100%;left: 0;width: 100%;height: 0;background-color: #fff;transition: all .5s cubic-bezier(0.25, 0.46, 0.45, 0.94);z-index: -1;}
+header .gnb-menu-list {display: flex;height: 100%;color:#fff;}
+header .gnb-menu-item {width: 150px;height: 100%;}
+header .gnb-menu-item > a {position: relative;display: flex;align-items: center;justify-content: center;width: 100%;height: 100%;padding: 0 20px;box-sizing: border-box;color: inherit;transition: all .3s cubic-bezier(0.25, 0.46, 0.45, 0.94)}
+header .gnb-menu-item.active .sub-menu-group {display: flex;padding: 30px 0;border-top: 1px solid #e8e8e8;}
+header .sub-menu-group {position:absolute;top: 100%;left: 0;display: none;justify-content: center;width:100%;opacity: 1;}
+header .sub-menu-group .sub-menu:first-child:nth-last-child(1) .sub-menu-list {display: flex;}
+header .sub-menu-group .sub-menu:first-child:nth-last-child(1) .sub-menu-list .sub-menu-item {padding: 0 30px;font-weight: 500;}
+header .sub-menu-group .sub-menu{padding: 0 30px;}
+header .sub-menu-group .sub-menu:not(:first-child:nth-last-child(1)) > a {font-weight: 500;}
+header .sub-menu-group .sub-menu:not(:first-child:nth-last-child(1)) li {margin-top: 20px;}
+
