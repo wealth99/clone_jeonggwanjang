@@ -13,7 +13,7 @@
 @font-face {font-family: 'Shantell Sans'; src: url(../font/ShantellSans-ExtraBold.woff) format("woff"); font-weight: 900; font-style: normal;unicode-range: U+0061-007A, U+0041-005A, U+0030-0039;}
 
 body {font-family: 'Noto Sans KR', 'Shantell Sans', sans-serif;font-weight: 300;font-style: normal;}
-    
+
 .fs-01 {font-size: 80px;}
 .fs-02 {font-size: 60px;}
 .fs-03 {font-size: 40px;}
@@ -62,3 +62,6 @@ header .sub-menu-group .sub-menu{padding: 0 30px;}
 header .sub-menu-group .sub-menu:not(:first-child:nth-last-child(1)) > a {font-weight: 500;}
 header .sub-menu-group .sub-menu:not(:first-child:nth-last-child(1)) li {margin-top: 20px;}
 
+main {position: relative;}
+
+footer {position:relative;height: 600px;background-color: #111;z-index: 1000;}

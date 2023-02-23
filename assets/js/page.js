@@ -200,6 +200,39 @@ const playSceneAnimation = () => {
     }
 }
 
+const fixedUnlockAnimation = () => {
+    const footer = document.querySelector('footer')
+        , footerRect = footer.getBoundingClientRect()
+        , btnTop = document.querySelector('.fixed-btn-top')
+        , sec08 = document.querySelector('.sec-08')
+        , sec08_bg = sec08.querySelector('.bg')
+        , sec08_contGroup = sec08.querySelector('.cont-group');
+
+    if(window.innerHeight >= footerRect.y) {
+        btnTop.style.position = 'absolute';
+
+        sec08_bg.style.position = 'absolute';
+        sec08_bg.style.top = 'auto';
+        sec08_bg.style.bottom = 0;
+
+        sec08_contGroup.style.position = 'absolute';
+        sec08_contGroup.style.top = 'auto';
+        sec08_contGroup.style.bottom = `calc(469px - ${sec08_contGroup.clientHeight / 2}px)`;
+        sec08_contGroup.style.transform = 'translateX(-50%)';
+    } else {
+        btnTop.style.position = '';
+         
+        sec08_bg.style.position = '';
+        sec08_bg.style.top = '';
+        sec08_bg.style.bottom = '';
+
+        sec08_contGroup.style.position = '';
+        sec08_contGroup.style.top = '';
+        sec08_contGroup.style.bottom = '';
+        sec08_contGroup.style.transform = '';
+    }
+}
+
 const changeSceneBackground = () => {
     sceneInfo.forEach(item => {
         const target = item.target
@@ -296,13 +329,14 @@ const scrollLoop = () => {
     progressBarAnimtion();
     checkSceneAnimation();
     changeSceneBackground();
+    fixedUnlockAnimation();
 
     const header = document.querySelector('header')
         , direction = getScrollDirection()
         , currentScene = getCurrentScene()
         , currentSceneInfo = sceneInfo[currentScene];
 
-    // 첫화면 나오기 전까지 스크롤 0, 0 유지
+    // 첫화면 나오기 전까지 스크롤 0, 1 유지
     if(!isScrollable) {
         currentSceneInfo.target.querySelector('.txt-line:nth-of-type(2)').addEventListener('transitionend', () => {
             isScrollable = true;
