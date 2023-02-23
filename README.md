@@ -1,2 +1,1 @@
-# jeonggwanjang_clone
-jeonggwanjang interaction clone coding
+# clone_jeonggwanjang
