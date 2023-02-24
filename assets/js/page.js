@@ -33,7 +33,7 @@ const sceneInfo = [
         cont_translateY_in: [10, -50, {start: 0.1, end: 0.2}]
     },
     {
-        // sec 04 reverse
+        // sec 04 
         scrollHeight: 0,
         heightNumber: 2.3,
         target: document.querySelector('.sec-04'),
@@ -44,7 +44,7 @@ const sceneInfo = [
         cont_translateY_in: [10, -50, {start: 0.3, end: 0.4}]
     },
     {
-        // sec 05 reverse
+        // sec 05 
         scrollHeight: 0,
         heightNumber: 2.3,
         target: document.querySelector('.sec-05'),
@@ -55,7 +55,7 @@ const sceneInfo = [
         cont_translateY_in: [10, -50, {start: 0.3, end: 0.4}]
     },
     {
-        // sec 06 reverse
+        // sec 06 
         scrollHeight: 0,
         heightNumber: 2.7,
         target: document.querySelector('.sec-06'),
@@ -87,8 +87,8 @@ const sceneInfo = [
         messageB: document.querySelector('.sec-08 .txt-line:nth-of-type(2)'),
         messageA_opacity_in: [0, 1, {start: 0.1, end: 0.2}],
         messageA_translateY_in: [10, -50, {start: 0.1, end: 0.2}],
-        messageB_opacity_in: [0, 1, {start: 0.3, end: 0.4}],
-        messageB_translateY_in: [10, -50, {start: 0.3, end: 0.4}]
+        messageB_opacity_in: [0, 1, {start: 0.2, end: 0.3}],
+        messageB_translateY_in: [10, -50, {start: 0.2, end: 0.3}]
     }
 ];
 
@@ -254,17 +254,59 @@ const getScrollDirection = () => {
     return direction;
 }
 
+let subAnimationList = [];
 const setHeaderAnimation = () => {
     let activeElement;
     const header = document.querySelector('header')
         , gnb = document.querySelector('.gnb')
         , gnbBg = document.querySelector('.gnb-menu-bg')
         , gnbMenuItems = document.querySelectorAll('.gnb-menu-item')
-        , gnbMenuActiveToggle = (target, childElements) => {
-            childElements.forEach(item => item.classList.remove('active'));
+        , gnbMenuActive = (event, target, childElements) => {
+            childElements.forEach(item => {
+                item.classList.remove('active');
+            });
 
             target.classList.add('active');
-            gnbBg.style.height = target.querySelector('.sub-menu-group').getBoundingClientRect().height  + 'px';
+            if(target.querySelector('.sub-menu-group')) {
+                gnbBg.style.height = target.querySelector('.sub-menu-group').getBoundingClientRect().height  + 'px';
+
+                if(event.target.classList.contains('gnb-btn')) {
+                    if(subAnimationList.length > 0) {
+                        subAnimationList.forEach((item, index) =>  subAnimationList[index].cancel());
+                        subAnimationList = [];
+                    }
+    
+                    setTimeout(() => {
+                        if(parseInt(gnbBg.style.height, 10) > 0) {
+                            const subMenuGroup = target.querySelector('.sub-menu-group')
+                                , subMenus = subMenuGroup.querySelectorAll('.sub-menu')
+                                , subLen = subMenus.length
+                                , subAnimation = [{transform: 'translate3d(0, 20%, 0)', opacity: 0}, {transform: 'translate3d(0, 0, 0)', opacity: 1}]
+                                , subTiming = {duration: 500, fill: 'forwards', easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'}
+    
+                            if(subLen === 1) {
+                                const subMenuItems = subMenus[0].querySelectorAll('.sub-menu-item');
+    
+                                subMenuItems.forEach((item, index) => {
+                                    subAnimationList.push(item.animate(
+                                        subAnimation,
+                                        {...subTiming, delay: 100 * index}
+                                    ));
+                                });
+                            } else {
+                                subMenus.forEach((item, index) => {
+                                    subAnimationList.push(item.animate(
+                                        subAnimation,
+                                        {...subTiming, delay: 100 * index}
+                                    ));
+                                })
+                            }   
+                        }
+                    }, 300);
+                }
+            } else {
+                gnbBg.style.height = 0;
+            }
         }
 
     header.addEventListener('mouseover', () => {
@@ -293,8 +335,8 @@ const setHeaderAnimation = () => {
             , childElements = Array.from(parentElement.children)
             , anchor = item.querySelector('a'); 
     
-        anchor.addEventListener('focus', () => gnbMenuActiveToggle(item, childElements));
-        item.addEventListener('mouseover', () => gnbMenuActiveToggle(item, childElements));
+        anchor.addEventListener('focus', (event) => gnbMenuActive(event, item, childElements));
+        item.addEventListener('mouseover', (event) => gnbMenuActive(event, item, childElements));
     });
 }
 
@@ -348,11 +390,33 @@ const scrollLoop = () => {
     }
 
     if(yOffset >= window.innerHeight) {
+
         header.classList.add('whiter');
     } else {
         header.classList.remove('whiter');
     }
 }
+
+let scrollStart;
+function durationScrollTo(y, duration = 800) {
+    const currentY = window.scrollY;
+    const stepY = (y - currentY) / duration;
+
+    const scrollInterval = function(timestamp) {
+        if (!scrollStart) scrollStart = timestamp;
+        var progress = timestamp - scrollStart;
+        
+        if (duration >= progress) {
+            window.scrollTo(0, currentY + (stepY * progress));
+            requestAnimationFrame(scrollInterval);
+        } else {
+            y !== currentY && window.scrollTo({top: y}); // 오차 발생시 이동
+            scrollStart = null;
+        }
+    };
+    
+    requestAnimationFrame(scrollInterval);
+};
 
 const optimizeAnimation = (callback) => {
     return function() {
@@ -374,13 +438,13 @@ window.addEventListener('DOMContentLoaded', () => {
     
     const btnTop = document.querySelector('.fixed-btn-top button');
     btnTop.addEventListener('click', () => {
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        durationScrollTo(0);
     });
 
     window.addEventListener('scroll', optimizeAnimation(() => {
         yOffset = window.scrollY;
         scrollLoop();
-    }));
+    }), { passive: true });
     
     window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
 });

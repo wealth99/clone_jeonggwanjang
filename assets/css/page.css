@@ -41,7 +41,7 @@
 .sec-05 {z-index: 500;}
 .sec-05 .bg {background: url(../images/bg-05.jpg) 50% 50% no-repeat;background-size: cover;}
 .sec-05 .cont-group {align-items: end;text-align: left;}
-.sec-05 .subject {margin-right: 106px;}
+.sec-05 .subject {margin-right: 371px;}
 .sec-05 .tit {margin-top: 20px;line-height: 1.63;}
 
 .sec-06 {z-index: 600;}
@@ -54,7 +54,7 @@
 .sec-07 .subject {margin-bottom: 70px;}
 .sec-07 .tit {margin-bottom: 40px;line-height: 1.3;}
 .sec-07 .desc {line-height: 1.5;}
-.sec-07 .personality-list {display: flex;justify-content: space-around;margin-top: 70px;}
+.sec-07 .personality-list {display: flex;justify-content: space-evenly;margin-top: 100px;}
 .sec-07 .personality-item {display: flex;flex-direction: column;align-items: center;}
 .sec-07 svg {display: block;width: 50px;height: 50px;margin-bottom:20px;}
 
