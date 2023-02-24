@@ -5,7 +5,7 @@
 .sec-inner {height: 100%;}
 .sec-inner .bg {width: 100%;height: 100vh;will-change: top, left;transform: translate3d(0, 0, 0);}
 .sec-inner .bg.fixed {position: fixed;top: 0;left: 0;}
-.sec-inner .cont-group {position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);transition: all .5s cubic-bezier(0.25, 0.46, 0.45, 0.94);display: none;flex-direction: column;width: 75vw;opacity: 0;color: #fff;text-align: center;}
+.sec-inner .cont-group {position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);transition: all .5s cubic-bezier(0.25, 0.46, 0.45, 0.94);display: none;flex-direction: column;width: 60vw;opacity: 0;color: #fff;text-align: center;}
 .sec-inner .subject {letter-spacing: 2px;}
 .sec-inner .subject[data-num*="0"] {position: relative;}
 .sec-inner .subject[data-num*="0"]:after {content: attr(data-num);position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);height: 90px;font-size: 70px;opacity: 0.2;}
@@ -66,10 +66,18 @@
 .sec-08 .tit span:nth-of-type(1) {margin-bottom: 10px;}
 .sec-08 .cont-group {transition: none;}
 
-.fixed-btn-top {position: fixed;right: 10px;bottom: 10px;display: none;z-index: 1000;}
-.fixed-btn-top.active {display: block;}
-.fixed-btn-top button {position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);cursor: pointer;}
+.btn-top {position: fixed;right: 10px;bottom: 10px;display: none;z-index: 1000;}
+.btn-top.active {display: block;}
+.btn-top button {position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);cursor: pointer;}
 .circle-progress {width: 58px;height: 58px;transform: rotate(-90deg);}
 .circle-progress .frame, .bar { fill: none;}
 .circle-progress .frame {stroke: transparent;}
 .circle-progress .bar {stroke: #bebebe;stroke-linecap: round;}
+
+.indicator {position: fixed;top: 50%;left: 30px;transform: translate3d(-100%, -50%, 0);display: flex;align-items: flex-start;flex-direction: column;width: 300px;transition: all .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);z-index: 1000;}
+.indicator.active {transform: translate3d(0, -50%, 0);}
+.indicator button {display: flex;align-items: center;color: #fff;cursor: pointer;}
+.indicator button:focus {outline: 1px solid black;}
+.indicator button::before {content: '';width: 7px;height: 7px;margin-left: 2px;margin-right: 15px;border-radius: 50%;background-color: #fff;}
+.indicator button.active::before {width:12px;height: 12px;margin-left: 0;}
+.indicator button:nth-of-type(n+2) {margin-top: 30px;}

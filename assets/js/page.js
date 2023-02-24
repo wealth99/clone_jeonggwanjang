@@ -158,35 +158,49 @@ const playSceneAnimation = () => {
         , currentYOffset = yOffset - prevScrollHeight
         , currentSceneInfo = sceneInfo[currentScene]
         , {scrollHeight} = currentSceneInfo
-        , scrollRatio = currentYOffset / scrollHeight;
-    
+        , scrollRatio = currentYOffset / scrollHeight
+        , indicator = document.querySelector('.indicator')
+        
     switch(currentScene) {
         case 0:
+            indicator.classList.remove('active')
             break;
         case 1:
+            if(scrollRatio > 0.2) {
+                indicator.classList.add('active');
+                indicatorAnimation(0);
+            }
             currentSceneInfo.cont.style.opacity = getPartAnimationValue(currentSceneInfo.cont_opacity_in, currentYOffset);
             currentSceneInfo.cont.style.transform = `translate3d(-50%, ${getPartAnimationValue(currentSceneInfo.cont_translateY_in, currentYOffset)}%, 0)`;
             break;
         case 2:
+            indicatorAnimation(1);
             currentSceneInfo.cont.style.opacity = getPartAnimationValue(currentSceneInfo.cont_opacity_in, currentYOffset);
             currentSceneInfo.cont.style.transform = `translate3d(-50%, ${getPartAnimationValue(currentSceneInfo.cont_translateY_in, currentYOffset)}%, 0)`;
             break;
         case 3:
+            indicatorAnimation(1);
             currentSceneInfo.target.style.opacity = getPartAnimationValue(currentSceneInfo.target_opacity_in, currentYOffset);
             currentSceneInfo.cont.style.opacity = getPartAnimationValue(currentSceneInfo.cont_opacity_in, currentYOffset);
             currentSceneInfo.cont.style.transform = `translate3d(-50%, ${getPartAnimationValue(currentSceneInfo.cont_translateY_in, currentYOffset)}%, 0)`;
             break;
         case 4:
+            indicatorAnimation(1);
             currentSceneInfo.target.style.opacity = getPartAnimationValue(currentSceneInfo.target_opacity_in, currentYOffset);
             currentSceneInfo.cont.style.opacity = getPartAnimationValue(currentSceneInfo.cont_opacity_in, currentYOffset);
             currentSceneInfo.cont.style.transform = `translate3d(-50%, ${getPartAnimationValue(currentSceneInfo.cont_translateY_in, currentYOffset)}%, 0)`;
             break;
         case 5:
+            indicatorAnimation(1);
             currentSceneInfo.target.style.opacity = getPartAnimationValue(currentSceneInfo.target_opacity_in, currentYOffset);
             currentSceneInfo.cont.style.opacity = getPartAnimationValue(currentSceneInfo.cont_opacity_in, currentYOffset);
             currentSceneInfo.cont.style.transform = `translate3d(-50%, ${getPartAnimationValue(currentSceneInfo.cont_translateY_in, currentYOffset)}%, 0)`;
             break;
         case 6:
+            if(scrollRatio > 0.2) indicatorAnimation(2);
+            if(scrollRatio >= 0.7 && scrollRatio < 1) indicator.classList.remove('active')
+            else indicator.classList.add('active')
+       
             currentSceneInfo.cont.style.opacity = getPartAnimationValue(currentSceneInfo.cont_opacity_in, currentYOffset);
             currentSceneInfo.cont.style.transform = `translate3d(-50%, ${getPartAnimationValue(currentSceneInfo.cont_translateY_in, currentYOffset)}%, 0)`;
             break;
@@ -200,10 +214,20 @@ const playSceneAnimation = () => {
     }
 }
 
+const indicatorAnimation = (idx) => {
+    const indicator = document.querySelector('.indicator')
+        , indicator_buttons = indicator.querySelectorAll('button');
+
+    indicator_buttons.forEach((item, index) => {
+        item.classList.remove('active');
+        if(index === idx) item.classList.add('active');
+    });
+}
+
 const fixedUnlockAnimation = () => {
     const footer = document.querySelector('footer')
         , footerRect = footer.getBoundingClientRect()
-        , btnTop = document.querySelector('.fixed-btn-top')
+        , btnTop = document.querySelector('.btn-top')
         , sec08 = document.querySelector('.sec-08')
         , sec08_bg = sec08.querySelector('.bg')
         , sec08_contGroup = sec08.querySelector('.cont-group');
@@ -254,60 +278,12 @@ const getScrollDirection = () => {
     return direction;
 }
 
-let subAnimationList = [];
 const setHeaderAnimation = () => {
     let activeElement;
     const header = document.querySelector('header')
         , gnb = document.querySelector('.gnb')
         , gnbBg = document.querySelector('.gnb-menu-bg')
-        , gnbMenuItems = document.querySelectorAll('.gnb-menu-item')
-        , gnbMenuActive = (event, target, childElements) => {
-            childElements.forEach(item => {
-                item.classList.remove('active');
-            });
-
-            target.classList.add('active');
-            if(target.querySelector('.sub-menu-group')) {
-                gnbBg.style.height = target.querySelector('.sub-menu-group').getBoundingClientRect().height  + 'px';
-
-                if(event.target.classList.contains('gnb-btn')) {
-                    if(subAnimationList.length > 0) {
-                        subAnimationList.forEach((item, index) =>  subAnimationList[index].cancel());
-                        subAnimationList = [];
-                    }
-    
-                    setTimeout(() => {
-                        if(parseInt(gnbBg.style.height, 10) > 0) {
-                            const subMenuGroup = target.querySelector('.sub-menu-group')
-                                , subMenus = subMenuGroup.querySelectorAll('.sub-menu')
-                                , subLen = subMenus.length
-                                , subAnimation = [{transform: 'translate3d(0, 20%, 0)', opacity: 0}, {transform: 'translate3d(0, 0, 0)', opacity: 1}]
-                                , subTiming = {duration: 500, fill: 'forwards', easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'}
-    
-                            if(subLen === 1) {
-                                const subMenuItems = subMenus[0].querySelectorAll('.sub-menu-item');
-    
-                                subMenuItems.forEach((item, index) => {
-                                    subAnimationList.push(item.animate(
-                                        subAnimation,
-                                        {...subTiming, delay: 100 * index}
-                                    ));
-                                });
-                            } else {
-                                subMenus.forEach((item, index) => {
-                                    subAnimationList.push(item.animate(
-                                        subAnimation,
-                                        {...subTiming, delay: 100 * index}
-                                    ));
-                                })
-                            }   
-                        }
-                    }, 300);
-                }
-            } else {
-                gnbBg.style.height = 0;
-            }
-        }
+        , gnbMenuItems = document.querySelectorAll('.gnb-menu-item');
 
     header.addEventListener('mouseover', () => {
         activeElement = gnb.querySelector('.active');
@@ -335,14 +311,61 @@ const setHeaderAnimation = () => {
             , childElements = Array.from(parentElement.children)
             , anchor = item.querySelector('a'); 
     
-        anchor.addEventListener('focus', (event) => gnbMenuActive(event, item, childElements));
-        item.addEventListener('mouseover', (event) => gnbMenuActive(event, item, childElements));
+        anchor.addEventListener('focus', (event) => gnbMenuAnimation(event, item, childElements));
+        item.addEventListener('mouseover', (event) => gnbMenuAnimation(event, item, childElements));
     });
+}
+
+const gnbMenuAnimation = (event, target, childElements) => {
+    const gnbBg = document.querySelector('.gnb-menu-bg');
+
+    childElements.forEach(item => item.classList.remove('active'));
+    target.classList.add('active');
+
+    if(!target.querySelector('.sub-menu-group')) {
+        return gnbBg.style.height = 0;
+    }
+
+    gnbBg.style.height = target.querySelector('.sub-menu-group').getBoundingClientRect().height  + 'px';
+    
+    if(event.target.classList.contains('gnb-btn')) {
+        if(subAnimationList.length > 0) {
+            subAnimationList.forEach((item, index) =>  subAnimationList[index].cancel());
+            subAnimationList = [];
+        }
+
+        setTimeout(() => {
+            parseInt(gnbBg.style.height, 10) > 0 && subMenuAnimation(target);
+        }, 300);
+    }
+}
+
+let subAnimationList = [];
+const subMenuAnimation = (target) => {
+    const subMenuGroup = target.querySelector('.sub-menu-group')
+        , subMenus = subMenuGroup.querySelectorAll('.sub-menu')
+        , subLen = subMenus.length
+        , subAnimation = [{transform: 'translate3d(0, 20%, 0)', opacity: 0}, {transform: 'translate3d(0, 0, 0)', opacity: 1}]
+        , subTiming = {duration: 500, fill: 'forwards', easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'}
+        , subItemMotion = (target, index) => {
+            const aniObj = target.animate(
+                subAnimation,
+                {...subTiming, delay: 100 * index}
+            )
+            return aniObj;
+        }
+
+    if(subLen === 1) {
+        const subMenuItems = subMenus[0].querySelectorAll('.sub-menu-item');
+        subMenuItems.forEach((item, index) => subAnimationList.push(subItemMotion(item, index)));
+    } else {
+        subMenus.forEach((item, index) => subAnimationList.push(subItemMotion(item, index)));
+    }  
 }
 
 const checkSceneAnimation = () => {
     sceneInfo.forEach(item => {
-        yOffset >= item.target.offsetTop ? item.target.classList.add('seen-sec') : item.target.classList.remove('seen-sec')
+        yOffset >= item.target.offsetTop ? item.target.classList.add('seen-sec') : item.target.classList.remove('seen-sec');
     });
 }
 
@@ -355,14 +378,14 @@ const setProgressBar = () => {
 }
 
 const progressBarAnimtion = () => {
-    const fixedWrap = document.querySelector('.fixed-btn-top')
+    const btnTop = document.querySelector('.btn-top')
         , bar = document.querySelector('.circle-progress .bar')
         , pageRatio = getPageRatio() / 100
         , radius = 54
         , circumference = 2 * Math.PI * radius
         , dashoffset = circumference * (1 - pageRatio);
 
-    yOffset >= window.innerHeight * 2 ? fixedWrap.classList.add('active') : fixedWrap.classList.remove('active')
+    yOffset >= window.innerHeight * 2 ? btnTop.classList.add('active') : btnTop.classList.remove('active')
     bar.style.strokeDashoffset = dashoffset;
 }
 
@@ -407,7 +430,7 @@ function durationScrollTo(y, duration = 800) {
         var progress = timestamp - scrollStart;
         
         if (duration >= progress) {
-            window.scrollTo(0, currentY + (stepY * progress));
+            window.scrollTo({ top: currentY + (stepY * progress)});
             requestAnimationFrame(scrollInterval);
         } else {
             y !== currentY && window.scrollTo({top: y}); // 오차 발생시 이동
@@ -436,7 +459,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setHeaderAnimation();
     setSectionScrollHeight();
     
-    const btnTop = document.querySelector('.fixed-btn-top button');
+    const btnTop = document.querySelector('.btn-top button');
     btnTop.addEventListener('click', () => {
         durationScrollTo(0);
     });
