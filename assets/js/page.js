@@ -159,11 +159,11 @@ const playSceneAnimation = () => {
         , currentSceneInfo = sceneInfo[currentScene]
         , {scrollHeight} = currentSceneInfo
         , scrollRatio = currentYOffset / scrollHeight
-        , indicator = document.querySelector('.indicator')
+        , indicator = document.querySelector('.indicator');
         
     switch(currentScene) {
         case 0:
-            indicator.classList.remove('active')
+            indicator.classList.remove('active');
             break;
         case 1:
             if(scrollRatio > 0.2) {
@@ -213,6 +213,7 @@ const playSceneAnimation = () => {
             break;
     }
 }
+
 
 const indicatorAnimation = (idx) => {
     const indicator = document.querySelector('.indicator')
@@ -283,8 +284,8 @@ const setHeaderAnimation = () => {
     const header = document.querySelector('header')
         , gnb = document.querySelector('.gnb')
         , gnbBg = document.querySelector('.gnb-menu-bg')
-        , gnbMenuItems = document.querySelectorAll('.gnb-menu-item');
-
+        , gnbMenuItems = document.querySelectorAll('.gnb-menu-item')
+ 
     header.addEventListener('mouseover', () => {
         activeElement = gnb.querySelector('.active');
 
@@ -296,14 +297,16 @@ const setHeaderAnimation = () => {
         activeElement = gnb.querySelector('.active');
         
         gnbBg.style.height = 0;
-        setTimeout(() => {
-            !activeElement && header.classList.remove('active');  
+        let itemr = setTimeout(() => {
+            !activeElement && header.classList.remove('active');
+            clearTimeout(itemr);
         }, 300);
     });
     
     gnb.addEventListener('mouseout', () => {
-        activeElement = gnb.querySelector('.active');
-        activeElement && activeElement.classList.remove('active');
+        activeElement = gnb.querySelectorAll('.active');
+        activeElement.forEach(item => item.classList.remove('active'));
+        gnbMenuItems.forEach(item => item.style.opacity = '');
     });
     
     gnbMenuItems.forEach(item => {
@@ -317,15 +320,23 @@ const setHeaderAnimation = () => {
 }
 
 const gnbMenuAnimation = (event, target, childElements) => {
-    const gnbBg = document.querySelector('.gnb-menu-bg');
+    const gnbBg = document.querySelector('.gnb-menu-bg')
+        , gnbDimmed = document.querySelector('.gnb-menu-dimmed');
 
-    childElements.forEach(item => item.classList.remove('active'));
+    childElements.forEach(item => {
+        item.classList.remove('active');
+        item.style.opacity = '0.4';
+    });
     target.classList.add('active');
+    target.style.opacity = '1';
 
     if(!target.querySelector('.sub-menu-group')) {
-        return gnbBg.style.height = 0;
+        gnbBg.style.height = 0;
+        gnbDimmed.classList.remove('active');
+        return
     }
 
+    gnbDimmed.classList.add('active');
     gnbBg.style.height = target.querySelector('.sub-menu-group').getBoundingClientRect().height  + 'px';
     
     if(event.target.classList.contains('gnb-btn')) {
@@ -347,7 +358,7 @@ const subMenuAnimation = (target) => {
         , subLen = subMenus.length
         , subAnimation = [{transform: 'translate3d(0, 20%, 0)', opacity: 0}, {transform: 'translate3d(0, 0, 0)', opacity: 1}]
         , subTiming = {duration: 500, fill: 'forwards', easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'}
-        , subItemMotion = (target, index) => {
+        , subItemAnimate = (target, index) => {
             const aniObj = target.animate(
                 subAnimation,
                 {...subTiming, delay: 100 * index}
@@ -357,9 +368,9 @@ const subMenuAnimation = (target) => {
 
     if(subLen === 1) {
         const subMenuItems = subMenus[0].querySelectorAll('.sub-menu-item');
-        subMenuItems.forEach((item, index) => subAnimationList.push(subItemMotion(item, index)));
+        subMenuItems.forEach((item, index) => subAnimationList.push(subItemAnimate(item, index)));
     } else {
-        subMenus.forEach((item, index) => subAnimationList.push(subItemMotion(item, index)));
+        subMenus.forEach((item, index) => subAnimationList.push(subItemAnimate(item, index)));
     }  
 }
 
@@ -413,7 +424,6 @@ const scrollLoop = () => {
     }
 
     if(yOffset >= window.innerHeight) {
-
         header.classList.add('whiter');
     } else {
         header.classList.remove('whiter');

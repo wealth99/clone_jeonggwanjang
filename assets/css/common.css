@@ -48,9 +48,11 @@ header.whiter .utils > a:nth-of-type(2) svg .st1, header.active .utils > a:nth-o
 header.whiter .utils .search-area svg, header.active .utils .search-area svg {fill: black;}
 header.active {background-color: #fff;}
 header.hide {transform: translate3d(0, -100%, 0);}
+header .gnb-menu-dimmed.active {height:100vh;opacity: 1;}
 
 header .gnb {height: 100%;}
 header .gnb-menu-bg {position:absolute;top: 100%;left: 0;width: 100%;height: 0;background-color: #fff;transition: all .5s cubic-bezier(0.25, 0.46, 0.45, 0.94);z-index: -1;}
+header .gnb-menu-dimmed {position: absolute;top:100%;left:0;width: 100%;height: 0;opacity: 0;background-color: rgba(0,0,0,0.3);backdrop-filter: blur(3px);transition: opacity .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);z-index: -2;}
 header .gnb-menu-list {display: flex;height: 100%;color:#fff;}
 header .gnb-menu-item {width: 150px;height: 100%;}
 header .gnb-menu-item > a {position: relative;display: flex;align-items: center;justify-content: center;width: 100%;height: 100%;padding: 0 20px;box-sizing: border-box;color: inherit;transition: all .3s cubic-bezier(0.25, 0.46, 0.45, 0.94)}
@@ -68,12 +70,6 @@ header .sub-menu:not(:first-child:nth-last-child(1)) li {margin-top: 20px;}
 header .sub-menu-item .label {}
 header .sub-menu-item .cont-area {margin-top: 30px;}
 header .sub-menu-item .cont-area img {width: 280px;margin-bottom: 30px;}
-
-.sub-menu-item-ani {animation: subMenuItemAni forwards .5s cubic-bezier(0.25, 0.46, 0.45, 0.94);}
-@keyframes subMenuItemAni {
-    0% {transform: translate3d(0, 100%, 0);opacity: 0;}
-    100% {transform: translate3d(0, 0, 0); opacity: 1;}
-}
 
 main {position: relative;}
 
