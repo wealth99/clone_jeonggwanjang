@@ -32,27 +32,34 @@ body {font-family: 'Noto Sans KR', 'Shantell Sans', sans-serif;font-weight: 300;
 
 header {position: fixed;top: 0;left: 0;display: flex;justify-content: space-between;align-items: center;width: 100%;height: 100px;padding: 0 80px;box-sizing: border-box;transition: background-color .3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform .5s cubic-bezier(0.78, -0.01, 0.68, 0.66);z-index: 1000}
 header .logo {flex: 1;}
+header .logo a {display: inline-block;width: 84px;}
 header .logo svg {display: block;width: 84px;fill: #fff;}
 header .utils {display: flex;align-items: center;justify-content: flex-end;flex: 1;}
 header .utils > a {position: relative;margin-right: 50px;color: #fff;}
 header .utils > a:after {content: '';position: absolute;top: 50%;right: -25px;transform: translateY(-50%);width: 1px;height: 14px;background-color: #fff;}
-header .utils > a:nth-of-type(2) {display: flex;align-items: center;}
-header .utils > a:nth-of-type(2) svg {width: 15px;height: 15px;margin: 3px 5px 0 0}
+header .utils .lang-group {position: relative;display: flex;align-items: center;margin-right: 50px;color: #fff}
+header .utils .lang-group:after {content: '';position: absolute;top: 50%;right: -25px;transform: translateY(-50%);width: 1px;height: 14px;background-color: #fff;}
+header .utils .lang {display: flex;align-items: center;color: inherit;}
+header .utils .lang svg {width: 15px;height: 15px;margin-right: 5px;}
+header .utils .lang.active + .langs-box {display: block;}
+header .utils .langs-box {position: absolute;top: -11px;left: -5px;display: none;padding: 10px 20px;border: 1px solid black;box-sizing: border-box;text-align: center;background-color: #fff;z-index: 2000;}
+header .utils .langs-box li:nth-of-type(n+2) {margin-top: 15px;}
 
 header.whiter {background-color: #fff;}
 header.whiter .logo svg, header.active .logo svg {fill: black;}
 header.whiter .gnb-menu-list, header.active .gnb-menu-list {color: black;}
-header.whiter .utils > a, header.active .utils > a {color: black;}
-header.whiter .utils > a:after, header.active .utils > a:after {background-color: black;}
-header.whiter .utils > a:nth-of-type(2) svg .st1, header.active .utils > a:nth-of-type(2) svg .st1 {fill: black;}
-header.whiter .utils .search-area svg, header.active .utils .search-area svg {fill: black;}
+header.whiter .utils > a, header.active .utils a, header.whiter .utils .lang-group, header.active .utils .lang-group  {color: black;}
+header.whiter .utils > a:after, header.active .utils > a:after, header.whiter .utils > .lang-group:after, header.active .utils > .lang-group:after {background-color: black;}
+header.whiter .utils .lang svg .st1, header.active .utils .lang svg .st1 {fill: black;}
+header.whiter .utils .search-group svg,  header.active .utils .search-group svg {fill: black;}
+header.whiter .utils .search-group .cls-2, header.active .utils .search-group .cls-2 {stroke: black;}
 header.active {background-color: #fff;}
 header.hide {transform: translate3d(0, -100%, 0);}
-header .gnb-menu-dimmed.active {height:100vh;opacity: 1;}
 
 header .gnb {height: 100%;}
 header .gnb-menu-bg {position:absolute;top: 100%;left: 0;width: 100%;height: 0;background-color: #fff;transition: all .5s cubic-bezier(0.25, 0.46, 0.45, 0.94);z-index: -1;}
 header .gnb-menu-dimmed {position: absolute;top:100%;left:0;width: 100%;height: 0;opacity: 0;background-color: rgba(0,0,0,0.3);backdrop-filter: blur(3px);transition: opacity .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);z-index: -2;}
+header .gnb-menu-dimmed.active {height:100vh;opacity: 1;}
 header .gnb-menu-list {display: flex;height: 100%;color:#fff;}
 header .gnb-menu-item {width: 150px;height: 100%;}
 header .gnb-menu-item > a {position: relative;display: flex;align-items: center;justify-content: center;width: 100%;height: 100%;padding: 0 20px;box-sizing: border-box;color: inherit;transition: all .3s cubic-bezier(0.25, 0.46, 0.45, 0.94)}
@@ -67,9 +74,28 @@ header .sub-menu{padding: 0 30px;}
 header .sub-menu:not(:first-child:nth-last-child(1)) {opacity: 0;}
 header .sub-menu:not(:first-child:nth-last-child(1)) > a {color: #888888;}
 header .sub-menu:not(:first-child:nth-last-child(1)) li {margin-top: 20px;}
-header .sub-menu-item .label {}
+header .sub-menu-item .label {position: relative;}
+header .sub-menu-item:hover .label::after {width: 100%;}
+header .sub-menu-item .label::after {content: '';position:absolute; top: 100%;left: 0;width:0;height: 1px;background-color: #000;transition: width .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);}
 header .sub-menu-item .cont-area {margin-top: 30px;}
 header .sub-menu-item .cont-area img {width: 280px;margin-bottom: 30px;}
+
+header .search-group.active .search-panel {height: 370px;border-top: 1px solid #e8e8e8;}
+header .search-group.active .search-panel form {display: block;}
+header .search-group.active .search-dimmed {height: 100vh;opacity: 1;}
+header .search-btn {display: flex;align-items: center;justify-content: center;width: 40px;height: 40px;}
+header .search-btn.active .svg-open {display: none;}
+header .search-btn.active .svg-close {display: block;}
+header .search-btn .svg-open {display: block;}
+header .search-btn .svg-close {display: none;}
+header .search-panel {position: fixed;top: 100px;left: 0;display: flex;align-items: center;justify-content: center;width: 100%;height: 0;background-color: #fff;transition: height .5s cubic-bezier(0.25, 0.46, 0.45, 0.94)}
+header .search-panel form {display: none;opacity: 0;transition: opacity .8s cubic-bezier(0.25, 0.46, 0.45, 0.94);}
+header .input-area {position: relative;width: 1000px;display: flex;align-items: center;padding-bottom: 10px;border-bottom: 2px solid black;}
+header .input-area input {width: calc(100% - 24px);}
+/* header .input-area input:focus { outline: -webkit-focus-ring-color auto 1px;} */
+header .input-area input::placeholder {color: #bcbcbc;}
+header .search-submit-btn {position: absolute;top: 0;right: 0;display: flex;align-items: center;}
+header .search-dimmed {position: absolute;top:100%;left:0;width: 100%;height: 0;opacity: 0;background-color: rgba(0,0,0,0.3);backdrop-filter: blur(3px);transition: opacity .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);z-index: -2;}
 
 main {position: relative;}
 

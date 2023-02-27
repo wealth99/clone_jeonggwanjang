@@ -246,7 +246,7 @@ const fixedUnlockAnimation = () => {
         sec08_contGroup.style.transform = 'translateX(-50%)';
     } else {
         btnTop.style.position = '';
-         
+
         sec08_bg.style.position = '';
         sec08_bg.style.top = '';
         sec08_bg.style.bottom = '';
@@ -285,6 +285,7 @@ const setHeaderAnimation = () => {
         , gnb = document.querySelector('.gnb')
         , gnbBg = document.querySelector('.gnb-menu-bg')
         , gnbMenuItems = document.querySelectorAll('.gnb-menu-item')
+        , subMenuItems = document.querySelectorAll('.sub-menu-item');
  
     header.addEventListener('mouseover', () => {
         activeElement = gnb.querySelector('.active');
@@ -314,19 +315,27 @@ const setHeaderAnimation = () => {
             , childElements = Array.from(parentElement.children)
             , anchor = item.querySelector('a'); 
     
-        anchor.addEventListener('focus', (event) => gnbMenuAnimation(event, item, childElements));
-        item.addEventListener('mouseover', (event) => gnbMenuAnimation(event, item, childElements));
+        anchor.addEventListener('focus', event => hoverGnbMenuAnimation(event, item, childElements));
+        item.addEventListener('mouseover', event => hoverGnbMenuAnimation(event, item, childElements));
     });
 }
 
-const gnbMenuAnimation = (event, target, childElements) => {
+const hoverGnbMenuAnimation = (event, target, childElements) => {
     const gnbBg = document.querySelector('.gnb-menu-bg')
-        , gnbDimmed = document.querySelector('.gnb-menu-dimmed');
+        , gnbDimmed = document.querySelector('.gnb-menu-dimmed')
+        , searchGorup = document.querySelector('.search-group');
+
+    if(searchGorup.classList.contains('active')) {
+        const form = searchGorup.querySelector('form');
+        searchGorup.classList.remove('active');
+        form.style.opacity = '0';
+    }
 
     childElements.forEach(item => {
         item.classList.remove('active');
         item.style.opacity = '0.4';
     });
+
     target.classList.add('active');
     target.style.opacity = '1';
 
@@ -346,13 +355,13 @@ const gnbMenuAnimation = (event, target, childElements) => {
         }
 
         setTimeout(() => {
-            parseInt(gnbBg.style.height, 10) > 0 && subMenuAnimation(target);
+            parseInt(gnbBg.style.height, 10) > 0 && showSubMenuAnimation(target);
         }, 300);
     }
 }
 
 let subAnimationList = [];
-const subMenuAnimation = (target) => {
+const showSubMenuAnimation = (target) => {
     const subMenuGroup = target.querySelector('.sub-menu-group')
         , subMenus = subMenuGroup.querySelectorAll('.sub-menu')
         , subLen = subMenus.length
@@ -372,6 +381,49 @@ const subMenuAnimation = (target) => {
     } else {
         subMenus.forEach((item, index) => subAnimationList.push(subItemAnimate(item, index)));
     }  
+}
+
+const handleSearchGroupClick = (event) => {
+    const searchGorup = event.currentTarget
+        , target = event.target
+        , searchBtn = event.target.closest('.search-btn')
+        , form = searchGorup.querySelector('form');
+
+    if(searchBtn) {
+        if(!searchGorup.classList.contains('active')) {
+            searchGorup.classList.add('active');
+            let timer = setTimeout(() => {
+                form.style.opacity = '1';
+                clearTimeout(timer);
+            }, 500);
+        } else {
+            searchGorup.classList.remove('active');
+            form.style.opacity = '0';
+        }
+    }
+
+    if(target.classList.contains('search-dimmed')) {
+        searchGorup.classList.toggle('active');
+        form.style.opacity = '0';
+    }
+}
+
+const handleLangGroupClick = (event) => {
+    const langGroup = event.currentTarget
+        , lang = langGroup.querySelector('.lang')
+        , target = event.target;
+
+    if(event.target.closest('.lang') || event.target.classList.contains('lang')) {
+        
+        lang.classList.toggle('active');
+    }
+
+    if(target.getAttribute('data-lang')) {
+        const dataLang = target.getAttribute('data-lang')
+            lang.querySelector('span').innerHTML = dataLang;
+            lang.classList.toggle('active');
+    }
+
 }
 
 const checkSceneAnimation = () => {
@@ -430,26 +482,30 @@ const scrollLoop = () => {
     }
 }
 
-let scrollStart;
 function durationScrollTo(y, duration = 800) {
-    const currentY = window.scrollY;
-    const stepY = (y - currentY) / duration;
+    let start = null;
+    const currntY = window.pageYOffset;
+    const distance = y - currntY;
 
-    const scrollInterval = function(timestamp) {
-        if (!scrollStart) scrollStart = timestamp;
-        var progress = timestamp - scrollStart;
-        
-        if (duration >= progress) {
-            window.scrollTo({ top: currentY + (stepY * progress)});
-            requestAnimationFrame(scrollInterval);
-        } else {
-            y !== currentY && window.scrollTo({top: y}); // 오차 발생시 이동
-            scrollStart = null;
-        }
-    };
-    
-    requestAnimationFrame(scrollInterval);
-};
+    window.requestAnimationFrame(step);
+
+    function step(timestamp) {
+        if(!start) start = timestamp;
+
+        const progress = timestamp - start;
+        window.scrollTo(0, easeInOutCubic(progress, currntY, distance, duration));
+        if (progress < duration) window.requestAnimationFrame(step);
+    }
+}
+
+// 이징 함수
+const easeInOutCubic = (t, b, c, d) => {
+    t /= d/2;
+    if (t < 1) return c/2*t*t*t + b;
+
+    t -= 2;
+    return c/2*(t*t*t + 2) + b;
+}
 
 const optimizeAnimation = (callback) => {
     return function() {
@@ -470,15 +526,18 @@ window.addEventListener('DOMContentLoaded', () => {
     setSectionScrollHeight();
     
     const btnTop = document.querySelector('.btn-top button');
-    btnTop.addEventListener('click', () => {
-        durationScrollTo(0);
-    });
+    btnTop.addEventListener('click', () =>  durationScrollTo(0));
+
+    const searcGroup = document.querySelector('.search-group');
+    searcGroup.addEventListener('click', handleSearchGroupClick);
+
+    const langGroup = document.querySelector('.lang-group');
+    langGroup.addEventListener('click', handleLangGroupClick)
 
     window.addEventListener('scroll', optimizeAnimation(() => {
         yOffset = window.scrollY;
         scrollLoop();
     }), { passive: true });
-    
+
     window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
 });
-
