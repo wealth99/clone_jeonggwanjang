@@ -591,3 +591,116 @@ window.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
 });
+
+$('.listbox-group').each(function(index, item) {
+    $(item).on('click', function(e) {
+        handelClickListbox($(this), e);
+    });
+});
+  
+$(document).on('keydown', 'ul[role="listbox"]', function(e) {
+    e.preventDefault();
+    handleKeypressListboxList($(this), e);
+});
+  
+let oldListbox, newListbox;
+const handelClickListbox = function(listbox, e) {
+    const $listbox = $(listbox)
+        , $button = $listbox.find('button[aria-haspopup="listbox"]')
+        , target = e.target
+        , targetName = target.nodeName;
+
+    newListbox = $listbox[0];
+    if(oldListbox !== newListbox) {
+        $('.listbox-group.active').find('button[aria-haspopup="listbox"]').removeAttr('aria-expanded');
+        $('.listbox-group.active').removeClass('active');
+    }
+
+    if(targetName == 'BUTTON') {
+        if(!$listbox.hasClass('active')) {
+            $listbox.addClass('active');
+            $listbox.find('ul[role="listbox"]').attr('tabindex', '-1').focus();
+            $button.attr('aria-expanded', 'true');
+        } else {
+            $listbox.removeClass('active');
+            $button.removeAttr('aria-expanded');
+        }
+    }
+
+    if(targetName == 'LI') {
+        changeListboxStatus($(target))
+
+        $button.removeAttr('aria-expanded');
+        $listbox.removeClass('active');
+    }
+
+    oldListbox = $listbox[0];
+};
+  
+let keypressNum = 0;
+const handleKeypressListboxList = function(listboxList, e) {
+    let target;
+    const $listboxList = $(listboxList)
+        , $listbox = $listboxList.closest('.listbox-group')
+        , $button = $listbox.find('button[aria-haspopup="listbox"]')
+        , listLen = $listboxList.children().length;
+
+    if(e.keyCode === 40 || e.key === 'ArrowDown') {
+        if($listbox.find('.focused').length > 0) {
+            keypressNum = $listbox.find('.focused').index() + 1;
+            target = $listboxList.children().eq(keypressNum);
+        } else {
+            keypressNum++;
+            target = $listboxList.children().eq(keypressNum - 1);
+        }
+
+        if(keypressNum === listLen) target = $listboxList.children().eq(0);
+
+        changeListboxStatus(target);
+    }
+
+    if(e.keyCode === 38 || e.key === 'ArrowUp') {
+        if(keypressNum < 0) keypressNum = listLen - 1;
+
+        if($listbox.find('.focused').length > 0) {
+            keypressNum = $listbox.find('.focused').index() - 1;
+            target = $listboxList.children().eq(keypressNum);
+        } else {
+            keypressNum--;
+            target = $listboxList.children().eq(keypressNum);
+        }
+
+        changeListboxStatus(target);
+    }
+
+    if(e.keyCode === 13 || e.key === 'Enter') {
+        $button.removeAttr('aria-expanded');
+        $button.focus();
+        $listbox.removeClass('active');
+    }
+
+    if(e.keyCode === 27 || e.key === 'Escape') {
+        $button.removeAttr('aria-expanded');
+        $button.focus();
+        $listbox.removeClass('active');
+    }
+}
+  
+const changeListboxStatus = function(target) {
+    const $target = $(target)
+        , $listboxList = $target.closest('ul[role="listbox"]')
+        , $listbox = $listboxList.closest('.listbox-group')
+        , $button = $listbox.find('button[aria-haspopup="listbox"]');
+
+    if(!$target.hasClass('focused')) {
+        $listboxList.attr('aria-activedescendant', $(target).attr('id'));
+    }
+
+    $target.siblings().removeClass('focused').removeAttr('aria-selected');
+    $target.addClass('focused').attr('aria-selected', 'true');
+    $target.attr('tabindex', 0).focus();
+    $target.removeAttr('tabindex');
+    $listboxList.attr('tabindex', '-1').focus();
+
+    $button.text($target.text());
+}
