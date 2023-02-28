@@ -286,7 +286,8 @@ const setHeaderAnimation = () => {
         , gnbBg = document.querySelector('.gnb-menu-bg')
         , gnbMenuItems = document.querySelectorAll('.gnb-menu-item')
         , subMenuItems = document.querySelectorAll('.sub-menu-item');
- 
+        
+    // header ----------------------------------------------------------------
     header.addEventListener('mouseover', () => {
         activeElement = gnb.querySelector('.active');
 
@@ -303,7 +304,8 @@ const setHeaderAnimation = () => {
             clearTimeout(itemr);
         }, 300);
     });
-    
+
+    // gnb ----------------------------------------------------------------
     gnb.addEventListener('mouseout', () => {
         activeElement = gnb.querySelectorAll('.active');
         activeElement.forEach(item => item.classList.remove('active'));
@@ -317,6 +319,22 @@ const setHeaderAnimation = () => {
     
         anchor.addEventListener('focus', event => hoverGnbMenuAnimation(event, item, childElements));
         item.addEventListener('mouseover', event => hoverGnbMenuAnimation(event, item, childElements));
+    });
+
+    // gnb sub ----------------------------------------------------------------
+    subMenuItems.forEach(item => {
+        const anchor = item.querySelector('a'); 
+
+        anchor.addEventListener('focus', event => hoverSubMenuAnimation(event, item, 'focus'));
+        item.addEventListener('mouseover', (event) => hoverSubMenuAnimation(event, item));
+
+        item.addEventListener('mouseout', (event) => {
+            const subMenuGroup = item.closest('.sub-menu-group')
+                , subMenuItems = subMenuGroup.querySelectorAll('.sub-menu-item');
+
+            subMenuItems.forEach(elem => elem.style.opacity = '');
+            event.currentTarget.style.opacity = '';
+        });
     });
 }
 
@@ -349,38 +367,72 @@ const hoverGnbMenuAnimation = (event, target, childElements) => {
     gnbBg.style.height = target.querySelector('.sub-menu-group').getBoundingClientRect().height  + 'px';
     
     if(event.target.classList.contains('gnb-btn')) {
-        if(subAnimationList.length > 0) {
-            subAnimationList.forEach((item, index) =>  subAnimationList[index].cancel());
-            subAnimationList = [];
-        }
+        removeSubMenuAnmation(target);
 
-        setTimeout(() => {
+        let timer = setTimeout(() => {
             parseInt(gnbBg.style.height, 10) > 0 && showSubMenuAnimation(target);
+            clearTimeout(timer);
         }, 300);
     }
 }
 
-let subAnimationList = [];
 const showSubMenuAnimation = (target) => {
     const subMenuGroup = target.querySelector('.sub-menu-group')
         , subMenus = subMenuGroup.querySelectorAll('.sub-menu')
         , subLen = subMenus.length
-        , subAnimation = [{transform: 'translate3d(0, 20%, 0)', opacity: 0}, {transform: 'translate3d(0, 0, 0)', opacity: 1}]
-        , subTiming = {duration: 500, fill: 'forwards', easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'}
-        , subItemAnimate = (target, index) => {
-            const aniObj = target.animate(
-                subAnimation,
-                {...subTiming, delay: 100 * index}
-            )
-            return aniObj;
-        }
+        , animate = (delay) => `subMenuItemFadeIn 0.5s ${delay}s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
 
+    let delay = 0;
     if(subLen === 1) {
         const subMenuItems = subMenus[0].querySelectorAll('.sub-menu-item');
-        subMenuItems.forEach((item, index) => subAnimationList.push(subItemAnimate(item, index)));
+        subMenuItems.forEach(item => {
+            item.style.animation = animate(delay);
+            delay += 0.2;
+        });
     } else {
-        subMenus.forEach((item, index) => subAnimationList.push(subItemAnimate(item, index)));
-    }  
+        subMenus.forEach(item => {
+            item.style.animation = animate(delay);
+            delay += 0.2;
+        });
+    }
+}
+
+const removeSubMenuAnmation = (target) => {
+    const subMenuGroup = target.querySelectorAll('.sub-menu-group');
+
+    subMenuGroup.forEach(item => {
+        const subMenus = item.querySelectorAll('.sub-menu')
+            , subLen = subMenus.length;
+
+        if(subLen === 1) {
+            const subMenuItems = subMenus[0].querySelectorAll('.sub-menu-item');
+            subMenuItems.forEach(item =>  {
+                item.style.animation = '';
+                item.style.opacity = ''
+            });
+            return;
+        }
+
+        subMenus.forEach(item => {
+            item.style.animation = '';
+            item.style.opacity = ''
+        });
+    });
+}
+
+const hoverSubMenuAnimation = (event, item, type = null) => {
+    const subMenuGroup = item.closest('.sub-menu-group')
+        , subMenuItems = subMenuGroup.querySelectorAll('.sub-menu-item');
+
+    if(type === 'focus') {
+        const subMenuItem = event.currentTarget.parentElement;
+
+        subMenuItems.forEach(elem => elem.style.setProperty('opacity', '0.4', 'important'))
+        subMenuItem.style.setProperty('opacity', '1', 'important');
+    } else {
+        subMenuItems.forEach(elem => elem.style.setProperty('opacity', '0.4', 'important'))
+        event.currentTarget.style.setProperty('opacity', '1', 'important');
+    }
 }
 
 const handleSearchGroupClick = (event) => {
@@ -414,16 +466,15 @@ const handleLangGroupClick = (event) => {
         , target = event.target;
 
     if(event.target.closest('.lang') || event.target.classList.contains('lang')) {
-        
         lang.classList.toggle('active');
     }
 
     if(target.getAttribute('data-lang')) {
-        const dataLang = target.getAttribute('data-lang')
-            lang.querySelector('span').innerHTML = dataLang;
-            lang.classList.toggle('active');
-    }
+        const dataLang = target.getAttribute('data-lang');
 
+        lang.querySelector('span').innerHTML = dataLang;
+        lang.classList.toggle('active');
+    }
 }
 
 const checkSceneAnimation = () => {
@@ -482,10 +533,10 @@ const scrollLoop = () => {
     }
 }
 
-function durationScrollTo(y, duration = 800) {
+function durationScrollTo(startY, duration = 800) {
     let start = null;
     const currntY = window.pageYOffset;
-    const distance = y - currntY;
+    const distance = startY - currntY;
 
     window.requestAnimationFrame(step);
 
@@ -498,13 +549,12 @@ function durationScrollTo(y, duration = 800) {
     }
 }
 
-// 이징 함수
 const easeInOutCubic = (t, b, c, d) => {
-    t /= d/2;
-    if (t < 1) return c/2*t*t*t + b;
+    t /= d / 2;
+    if(t < 1) return c / 2 * t * t * t + b;
 
     t -= 2;
-    return c/2*(t*t*t + 2) + b;
+    return c / 2 * (t * t * t + 2) + b;
 }
 
 const optimizeAnimation = (callback) => {
