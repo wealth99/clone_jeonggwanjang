@@ -335,42 +335,6 @@ const scrollLoop = () => {
     }
 }
 
-function durationScrollTo(startY, duration = 800) {
-    let start = null;
-    const currntY = window.pageYOffset;
-    const distance = startY - currntY;
-
-    window.requestAnimationFrame(step);
-
-    function step(timestamp) {
-        if(!start) start = timestamp;
-
-        const progress = timestamp - start;
-        window.scrollTo(0, easeInOutCubic(progress, currntY, distance, duration));
-        if (progress < duration) window.requestAnimationFrame(step);
-    }
-}
-
-const easeInOutCubic = (t, b, c, d) => {
-    t /= d / 2;
-    if(t < 1) return c / 2 * t * t * t + b;
-
-    t -= 2;
-    return c / 2 * (t * t * t + 2) + b;
-}
-
-const optimizeAnimation = (callback) => {
-    return function() {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                callback();
-                ticking = false;
-          });
-          ticking = true;
-        }
-    }
-}
-
 window.addEventListener('DOMContentLoaded', () => {
     window.scrollTo(0, 2);
     setProgressBar();
