@@ -1,3 +1,34 @@
+let supportsPassive =  false;
+const arrowKey = {37: 1, 38: 1, 39: 1, 40: 1};
+const preventDefault = (e) => e.preventDefault();
+const preventDefaultForScrollKeys = (e) => {
+    if (keys[e.keyCode]) {
+        preventDefault(e);
+        return false;
+    }
+}
+try {
+    window.addEventListener("test", null, Object.defineProperty({}, 'passive', {
+      get: function () { supportsPassive = true; }
+    }));
+} catch(e) {}
+const wheelOpt = supportsPassive ? { passive: false } : false;
+const wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+
+const disableScroll = () => {
+    window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
+    window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
+    window.addEventListener('touchmove', preventDefault, wheelOpt); // mobile
+    window.addEventListener('keydown', preventDefaultForScrollKeys, false);
+}
+ 
+const enableScroll = () => {
+    window.removeEventListener('DOMMouseScroll', preventDefault, false);
+    window.removeEventListener(wheelEvent, preventDefault, wheelOpt);
+    window.removeEventListener('touchmove', preventDefault, wheelOpt);
+    window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
+}
+
 const setHeaderAnimation = () => {
     let activeElement;
     const header = document.querySelector('header')
@@ -194,6 +225,80 @@ const handleLangGroupClick = (event) => {
     }
 }
 
+const setSectionScrollHeight = () => {
+    sceneInfo.forEach(item => {
+        let height = window.innerHeight * item.heightNumber;
+
+        item.scrollHeight = height
+        item.target.style.height = height + 'px';
+    });
+}
+
+const getCurrentScene = () => {
+    let totalScrollHeight = 0;
+    let currentScene = 0;
+    
+    for(let i = 0; i < sceneInfo.length; i++) {
+        totalScrollHeight += sceneInfo[i].scrollHeight;
+
+        if(totalScrollHeight >= yOffset) {
+            currentScene = i;
+            break;
+        }
+    }
+
+    return currentScene;
+}
+
+const getPrevScrollHeight = () => {
+    let prevScrollHeight = 0;
+    let currentScene = getCurrentScene();
+
+    for(let i = 0; i < currentScene; i++) {
+        prevScrollHeight += sceneInfo[i].scrollHeight;
+    }
+
+    return prevScrollHeight;
+}
+
+const getPageRatio = () => {
+    return (yOffset / (document.body.clientHeight - window.innerHeight)) * 100
+}
+
+const getPartAnimationValue = (info, currentYOffset) => {
+    let ratio;
+    const currentScene = getCurrentScene()
+        , scrollHeight = sceneInfo[currentScene].scrollHeight
+        , scrollRatio = currentYOffset / scrollHeight
+        , partScrollStart = info[2].start * scrollHeight
+        , partScrollEnd = info[2].end * scrollHeight
+        , partScrollHeight = partScrollEnd - partScrollStart;
+
+    if(currentYOffset >= partScrollStart && currentYOffset <= partScrollEnd) {
+        ratio = (currentYOffset - partScrollStart) / partScrollHeight * (info[1] - info[0]) + info[0];
+    } else if(currentYOffset > partScrollEnd) {
+        ratio = info[1];
+    } else if(currentYOffset < partScrollStart) {
+        ratio = info[0];
+    }
+  
+    return ratio;
+}
+
+const checkSceneAnimation = () => {
+    sceneInfo.forEach(item => {
+        yOffset >= item.target.offsetTop ? item.target.classList.add('seen-sec') : item.target.classList.remove('seen-sec');
+    });
+}
+
+const getScrollDirection = () => {
+    const scrollY = window.scrollY;
+    const direction = scrollY > lastScrollY ? "down" : "up";
+    lastScrollY = scrollY;
+
+    return direction;
+}
+
 let oldListbox, newListbox;
 const handelClickListbox = (listbox, e) => {
     const $listbox = $(listbox)
@@ -320,16 +425,24 @@ const easeInOutCubic = (t, b, c, d) => {
     return c / 2 * (t * t * t + 2) + b;
 }
 
-const optimizeAnimation = (callback) => {
-    return function() {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                callback();
-                ticking = false;
-          });
-          ticking = true;
-        }
-    }
+const setProgressBar = () => {
+    const bar = document.querySelector('.circle-progress .bar')
+        , radius = 54
+        , circumference = 2 * Math.PI * radius;
+
+    bar.style.strokeDasharray = circumference;
+}
+
+const progressBarAnimtion = () => {
+    const btnTop = document.querySelector('.btn-top')
+        , bar = document.querySelector('.circle-progress .bar')
+        , pageRatio = getPageRatio() / 100
+        , radius = 54
+        , circumference = 2 * Math.PI * radius
+        , dashoffset = circumference * (1 - pageRatio);
+
+    yOffset >= window.innerHeight * 2 ? btnTop.classList.add('active') : btnTop.classList.remove('active')
+    bar.style.strokeDashoffset = dashoffset;
 }
 
 const readHtml = (url) => fetch(url).then(res => res.text());
@@ -339,20 +452,19 @@ window.addEventListener('DOMContentLoaded', () => {
     const footerLoad = readHtml('../pages/include/footer.html');
 
     headerLoad.then(html => {
-        document.querySelector('header').insertAdjacentHTML('beforeend', html)
-    })
-    .then(() => {
+        document.querySelector('header').insertAdjacentHTML('beforeend', html);
+    }).then(() => {
         setHeaderAnimation();
 
         const searcGroup = document.querySelector('.search-group');
         searcGroup.addEventListener('click', handleSearchGroupClick);
 
         const langGroup = document.querySelector('.lang-group');
-        langGroup.addEventListener('click', handleLangGroupClick)
+        langGroup.addEventListener('click', handleLangGroupClick);
     });
 
     footerLoad.then(html => {
-        document.querySelector('footer').insertAdjacentHTML('beforeend', html)
+        document.querySelector('footer').insertAdjacentHTML('beforeend', html);
     }).then(() => {
         $('.listbox-group').each(function(index, item) {
             $(item).on('click', function(e) {
@@ -365,4 +477,6 @@ window.addEventListener('DOMContentLoaded', () => {
             handleKeypressListboxList($(this), e);
         });
     });
+
+    window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
 });

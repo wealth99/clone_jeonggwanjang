@@ -1,0 +1,25 @@
+.sec {position: relative;}
+.sec-inner {height: 100%;}
+.sec-inner .bg.fixed {position: fixed;top: 0;left: 0;}
+
+.sec-01 {min-height: 700px;padding-top: 100px;box-sizing: border-box;}
+.sec-01 .sec-inner {display: flex;align-items: center;justify-content: center;}
+.sec-01 .page-tit {display: flex;justify-content: center;font-size: 120px;}
+.sec-01 .txt-inline {transform: translate3d(100%, 0, 0);opacity: 0;transition: transform .4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity .8s cubic-bezier(0.25, 0.46, 0.45, 0.94);}
+.sec-01 .txt-inline:nth-of-type(1) {transition-delay: .1s;}
+.sec-01 .txt-inline:nth-of-type(2) {transition-delay: .2s;}
+.sec-01 .txt-inline:nth-of-type(3) {transition-delay: .3s;}
+.sec-01 .txt-inline:nth-of-type(4) {transition-delay: .4s;}
+.sec-01 .txt-inline:nth-of-type(5) {transition-delay: .5s;}
+.sec-01.seen-sec .txt-inline {transform: translate3d(0, 0, 0);opacity: 1;}
+
+.sec-02 .sec-inner {position: relative;transition: transform 1s  cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 1.2s .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);opacity: 0;overflow: hidden;}
+.sec-02 .bg {position: relative;width: 100%;height: 100vh;background: url('../images/bg-09.jpg') 50% 50% no-repeat;will-change: transform;transform: translate3d(0, 0, 0);background-size: cover;}
+.sec-02 .bg-cover {position: absolute;top: 0;left: 0;width: 100%;height: 100vh;opacity: 0.5;transform: translate3d(0, 0, 0) scale(0, 1);transform-origin: 0 50%;background-color: rgb(150, 31, 26);}
+.sec-02 .product-img {position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);display: none;}
+.sec-02 .product-img img {transform: translate3d(0, 120vh, 0) scale(2);display: block;max-width: 720px;height: 64vh;}
+.sec-02 .cont-group {position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);display: none;text-align: center;color: #fff;}
+.sec-02 .tit {transform: translate3d(0, 30%, 0);opacity: 0;}
+.sec-02 .desc {margin-top: 50px;transform: translate3d(0, 30%, 0);opacity: 0;line-height: 1.9;}
+.sec-02 .bg-cover.fixed {position: fixed;}
+.sec-02 .product-img.active, .sec-02 .cont-group.active{display: block;}

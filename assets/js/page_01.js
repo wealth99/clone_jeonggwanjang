@@ -92,66 +92,6 @@ const sceneInfo = [
     }
 ];
 
-const setSectionScrollHeight = () => {
-    sceneInfo.forEach(item => {
-        let height = window.innerHeight * item.heightNumber;
-
-        item.scrollHeight = height
-        item.target.style.height = height + 'px';
-    });
-}
-
-const getCurrentScene = () => {
-    let totalScrollHeight = 0;
-    let currentScene = 0;
-    
-    for(let i = 0; i < sceneInfo.length; i++) {
-        totalScrollHeight += sceneInfo[i].scrollHeight;
-
-        if(totalScrollHeight >= yOffset) {
-            currentScene = i;
-            break;
-        }
-    }
-
-    return currentScene;
-}
-
-const getPrevScrollHeight = () => {
-    let prevScrollHeight = 0;
-    let currentScene = getCurrentScene();
-
-    for(let i = 0; i < currentScene; i++) {
-        prevScrollHeight += sceneInfo[i].scrollHeight;
-    }
-
-    return prevScrollHeight;
-}
-
-const getPageRatio = () => {
-    return (yOffset / (document.body.clientHeight - window.innerHeight)) * 100
-}
-
-const getPartAnimationValue = (info, currentYOffset) => {
-    let ratio;
-    const currentScene = getCurrentScene()
-        , scrollHeight = sceneInfo[currentScene].scrollHeight
-        , scrollRatio = currentYOffset / scrollHeight
-        , partScrollStart = info[2].start * scrollHeight
-        , partScrollEnd = info[2].end * scrollHeight
-        , partScrollHeight = partScrollEnd - partScrollStart;
-
-    if(currentYOffset >= partScrollStart && currentYOffset <= partScrollEnd) {
-        ratio = (currentYOffset - partScrollStart) / partScrollHeight * (info[1] - info[0]) + info[0];
-    } else if(currentYOffset > partScrollEnd) {
-        ratio = info[1];
-    } else if(currentYOffset < partScrollStart) {
-        ratio = info[0];
-    }
-  
-    return ratio;
-}
-
 const playSceneAnimation = () => {
     const currentScene = getCurrentScene()
         , prevScrollHeight = getPrevScrollHeight()
@@ -214,7 +154,6 @@ const playSceneAnimation = () => {
     }
 }
 
-
 const indicatorAnimation = (idx) => {
     const indicator = document.querySelector('.indicator')
         , indicator_buttons = indicator.querySelectorAll('button');
@@ -272,46 +211,7 @@ const changeSceneBackground = () => {
     });
 }
 
-const getScrollDirection = () => {
-    const direction = yOffset > lastScrollY ? "down" : "up";
-    lastScrollY = scrollY;
-
-    return direction;
-}
-
-const checkSceneAnimation = () => {
-    sceneInfo.forEach(item => {
-        yOffset >= item.target.offsetTop ? item.target.classList.add('seen-sec') : item.target.classList.remove('seen-sec');
-    });
-}
-
-const setProgressBar = () => {
-    const bar = document.querySelector('.circle-progress .bar')
-        , radius = 54
-        , circumference = 2 * Math.PI * radius;
-
-    bar.style.strokeDasharray = circumference;
-}
-
-const progressBarAnimtion = () => {
-    const btnTop = document.querySelector('.btn-top')
-        , bar = document.querySelector('.circle-progress .bar')
-        , pageRatio = getPageRatio() / 100
-        , radius = 54
-        , circumference = 2 * Math.PI * radius
-        , dashoffset = circumference * (1 - pageRatio);
-
-    yOffset >= window.innerHeight * 2 ? btnTop.classList.add('active') : btnTop.classList.remove('active')
-    bar.style.strokeDashoffset = dashoffset;
-}
-
 const scrollLoop = () => {
-    playSceneAnimation();
-    progressBarAnimtion();
-    checkSceneAnimation();
-    changeSceneBackground();
-    fixedUnlockAnimation();
-
     const header = document.querySelector('header')
         , direction = getScrollDirection()
         , currentScene = getCurrentScene()
@@ -320,7 +220,11 @@ const scrollLoop = () => {
     // 첫화면 나오기 전까지 스크롤 0, 1 유지
     if(!isScrollable) {
         currentSceneInfo.target.querySelector('.txt-line:nth-of-type(2)').addEventListener('transitionend', () => {
-            isScrollable = true;
+            let timer = setTimeout(() => {
+                isScrollable = true;
+                enableScroll();
+                clearTimeout(timer);
+           }, 100);
         });
 
         window.scrollTo(0, 1);
@@ -333,21 +237,37 @@ const scrollLoop = () => {
     } else {
         header.classList.remove('whiter');
     }
+
+    playSceneAnimation();
+    progressBarAnimtion();
+    checkSceneAnimation();
+    changeSceneBackground();
+    fixedUnlockAnimation();
+}
+
+const optimizeAnimation = (callback) => {
+    return function() {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                callback();
+                ticking = false;
+          });
+          ticking = true;
+        }
+    }
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    window.scrollTo(0, 2);
+    window.scrollTo(0, 1);
+    disableScroll();
     setProgressBar();
     setSectionScrollHeight();
 
     const btnTop = document.querySelector('.btn-top button');
-        btnTop.addEventListener('click', () =>  durationScrollTo(0));
+    btnTop.addEventListener('click', () =>  durationScrollTo(0));
 
     window.addEventListener('scroll', optimizeAnimation(() => {
         yOffset = window.scrollY;
-
         scrollLoop();
     }), { passive: true });
-
-    window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
 });
