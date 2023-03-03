@@ -16,9 +16,9 @@ const wheelOpt = supportsPassive ? { passive: false } : false;
 const wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
 
 const disableScroll = () => {
-    window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
-    window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
-    window.addEventListener('touchmove', preventDefault, wheelOpt); // mobile
+    window.addEventListener('DOMMouseScroll', preventDefault, false);
+    window.addEventListener(wheelEvent, preventDefault, wheelOpt);
+    window.addEventListener('touchmove', preventDefault, wheelOpt);
     window.addEventListener('keydown', preventDefaultForScrollKeys, false);
 }
  
@@ -425,24 +425,28 @@ const easeInOutCubic = (t, b, c, d) => {
     return c / 2 * (t * t * t + 2) + b;
 }
 
-const setProgressBar = () => {
-    const bar = document.querySelector('.circle-progress .bar')
-        , radius = 54
-        , circumference = 2 * Math.PI * radius;
-
-    bar.style.strokeDasharray = circumference;
-}
-
-const progressBarAnimtion = () => {
+const progressBarAnimation = () => {
     const btnTop = document.querySelector('.btn-top')
         , bar = document.querySelector('.circle-progress .bar')
-        , pageRatio = getPageRatio() / 100
         , radius = 54
         , circumference = 2 * Math.PI * radius
-        , dashoffset = circumference * (1 - pageRatio);
 
-    yOffset >= window.innerHeight * 2 ? btnTop.classList.add('active') : btnTop.classList.remove('active')
-    bar.style.strokeDashoffset = dashoffset;
+    const init = () => {
+        bar.style.strokeDasharray = circumference;
+    }
+
+    const scroll = () => {
+        const pageRatio = getPageRatio() / 100
+            , dashoffset = circumference * (1 - pageRatio);
+        
+        yOffset >= window.innerHeight * 2 ? btnTop.classList.add('active') : btnTop.classList.remove('active')
+        bar.style.strokeDashoffset = dashoffset;
+    }
+
+    return {
+        init: () => init(),
+        scroll: () => scroll()
+    }
 }
 
 const readHtml = (url) => fetch(url).then(res => res.text());

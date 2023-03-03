@@ -239,10 +239,20 @@ const scrollLoop = () => {
     }
 
     playSceneAnimation();
-    progressBarAnimtion();
     checkSceneAnimation();
     changeSceneBackground();
     fixedUnlockAnimation();
+    progressBarAnimation().scroll();
+}
+
+const loadInit = () => {
+    window.scrollTo(0, 1);
+    disableScroll();
+    progressBarAnimation().init();
+    setSectionScrollHeight();
+
+    const btnTop = document.querySelector('.btn-top button');
+    btnTop.addEventListener('click', () =>  durationScrollTo(0));
 }
 
 const optimizeAnimation = (callback) => {
@@ -258,10 +268,7 @@ const optimizeAnimation = (callback) => {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    window.scrollTo(0, 1);
-    disableScroll();
-    setProgressBar();
-    setSectionScrollHeight();
+    loadInit();
 
     const btnTop = document.querySelector('.btn-top button');
     btnTop.addEventListener('click', () =>  durationScrollTo(0));
