@@ -265,30 +265,44 @@ const getPageRatio = () => {
     return (yOffset / (document.body.clientHeight - window.innerHeight)) * 100
 }
 
-const getPartAnimationValue = (info, currentYOffset) => {
-    let ratio;
-    const currentScene = getCurrentScene()
-        , scrollHeight = sceneInfo[currentScene].scrollHeight
+const getPartAnimationValue = (info, currentYOffset, currentIndex = null) => {
+    let rv;
+    const currentScene = !currentIndex ? getCurrentScene() : undefined
+        , scrollHeight = currentIndex ? sceneInfo[currentIndex].scrollHeight : sceneInfo[currentScene].scrollHeight
         , scrollRatio = currentYOffset / scrollHeight
         , partScrollStart = info[2].start * scrollHeight
         , partScrollEnd = info[2].end * scrollHeight
         , partScrollHeight = partScrollEnd - partScrollStart;
 
     if(currentYOffset >= partScrollStart && currentYOffset <= partScrollEnd) {
-        ratio = (currentYOffset - partScrollStart) / partScrollHeight * (info[1] - info[0]) + info[0];
+        rv = (currentYOffset - partScrollStart) / partScrollHeight * (info[1] - info[0]) + info[0];
     } else if(currentYOffset > partScrollEnd) {
-        ratio = info[1];
+        rv = info[1];
     } else if(currentYOffset < partScrollStart) {
-        ratio = info[0];
+        rv = info[0];
     }
   
-    return ratio;
+    return rv;
 }
 
 const checkSceneAnimation = () => {
     sceneInfo.forEach(item => {
         yOffset >= item.target.offsetTop ? item.target.classList.add('seen-sec') : item.target.classList.remove('seen-sec');
     });
+}
+
+const getElemScrollRatio = function(elem) {
+    const top = elem.getBoundingClientRect().top
+        , { innerHeight } = window;
+
+    return top / innerHeight;
+}
+
+const isElemOverScreen = (elem, triggerDiff) => {
+    const top = elem.getBoundingClientRect().top
+        , { innerHeight } = window;
+
+    return top > innerHeight + (triggerDiff || 0);
 }
 
 const getScrollDirection = () => {

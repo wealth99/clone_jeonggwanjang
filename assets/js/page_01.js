@@ -164,7 +164,7 @@ const indicatorAnimation = (idx) => {
     });
 }
 
-const fixedUnlockAnimation = () => {
+const unlockFixedElemAnimation = () => {
     const footer = document.querySelector('footer')
         , footerRect = footer.getBoundingClientRect()
         , btnTop = document.querySelector('.btn-top')
@@ -241,7 +241,7 @@ const scrollLoop = () => {
     playSceneAnimation();
     checkSceneAnimation();
     changeSceneBackground();
-    fixedUnlockAnimation();
+    unlockFixedElemAnimation();
     progressBarAnimation().scroll();
 }
 

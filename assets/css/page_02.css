@@ -22,6 +22,27 @@
 .sec-02 .tit {transform: translate3d(0, 30%, 0);opacity: 0;}
 .sec-02 .desc {margin-top: 50px;transform: translate3d(0, 30%, 0);opacity: 0;line-height: 1.9;}
 .sec-02 .ad-logo {position: absolute;right: 60px;bottom:60px;display: none;width: 100px;height: 100px;opacity: 0;background: url(../images/ad_logo_pl.svg) 50% 50% no-repeat;background-size: cover;}
-
 .sec-02 .bg-cover.fixed, .sec-02 .product-img, .sec-02 .cont-group.fixed, .sec-02 .ad-logo {position: fixed;}
 .sec-02 .product-img.active, .sec-02 .cont-group.active, .sec-02 .ad-logo {display: block;}
+
+.sec-03 .cont-group {position: absolute;top: 0;left: 0;display: flex;flex-direction: column;align-items: center;justify-content: center;width: 100%;height: 100vh;}
+.sec-03 .sec-over-inner {position: absolute;top: 0;left: 0;display: none;width: 100%;height: 0;overflow: hidden;}
+.sec-03 .sec-over-inner.active {display: block;}
+.sec-03 .sec-over-inner.fixed {position: fixed}
+.sec-03 .sec-over-inner .cont-group {top: auto;bottom: 0;color: #fff;}
+.sec-03 .sec-over-bgs {position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width:720px;height: 560px;}
+.sec-03 .sec-over-bg {position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-position: 50% 50%;background-repeat: no-repeat;background-size: cover;}
+.sec-03 .sec-over-bg-01 {opacity: 1;background-image: url('../images/bg-10.jpg');}
+.sec-03 .sec-over-bg-02 {opacity: 0;background-image: url('../images/bg-11.jpg');}
+.sec-03 .sec-over-bg-03 {opacity: 0;background-image: url('../images/bg-12.jpg');}
+
+.sec-04 .sec-inner {padding-top: 240px;box-sizing: border-box;}
+.sec-04 .cont {display: flex;align-items: center;justify-content: center;}
+.sec-04 .cont-01 .cont-col:nth-of-type(1) {transform: translate(0px, 10vh);width: 400px;margin-right: 40px;opacity: 0;}
+.sec-04 .cont-01 .cont-col:nth-of-type(2) {transform: translate(0px, 50%);width: 500px;overflow: hidden;}
+.sec-04 .cont-01 .cont-img img {width: 100%;transform-origin: 50% 80%;transform: scale(1.5, 1.5);}
+
+.sec-04 .cont-02 .cont-col:nth-of-type(1) {transform: translate(0px, 50%);width: 400px;margin-right: 40px;margin-top: -40px;overflow: hidden;}
+.sec-04 .cont-02 .cont-col:nth-of-type(2) {transform: translate(0px, 10vh);width: 500px;opacity: 0;}
+.sec-04 .cont-02 .cont-img img {width: 100%;transform-origin: 50% 80%;transform: scale(1.5, 1.5);}
+.sec-04 .cont-02 .desc {line-height: 1.8;}

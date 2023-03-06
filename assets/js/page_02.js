@@ -35,6 +35,44 @@ const sceneInfo = [
         cont_desc_transform_in: [30, 0, {start: 0.6, end: 0.7}],
         adLogo_opacity_in: [0, 1, {start: 0.7, end: 0.8}]
     },
+    {
+        scrollHeight: 0,
+        heightNumber: 4,
+        target: document.querySelector('.sec-03'),
+        cont_01: document.querySelector('.sec-03 .cont-group'),
+        cont_02: document.querySelector('.sec-03 .sec-over .cont-group'),
+        sec_over_bgs: document.querySelector('.sec-03 .sec-over-bgs'),
+        sec_over_bgs_01: document.querySelector('.sec-03 .sec-over-bg-01'),
+        sec_over_bgs_02: document.querySelector('.sec-03 .sec-over-bg-02'),
+        sec_over_bgs_03: document.querySelector('.sec-03 .sec-over-bg-03'),
+        sec_over_bgs_width_in: [720, window.innerWidth, {start: 0, end: 0.7}],
+        sec_over_bgs_height_in: [560, window.innerHeight, {start: 0, end: 0.7}],
+        sec_over_bgs_01_opacity_in: [1, 0, {start: 0.1, end: 0.2}],
+        sec_over_bgs_02_opacity_in: [0, 1, {start: 0.17, end: 0.4}],
+        sec_over_bgs_03_opacity_in: [0, 1, {start: 0.37, end: 0.6}],
+        sec_over_bgs_01_opacity_out: [1, 0, {start: 0.2, end: 0.35}],
+        cont_01_opacity_in: [1, 0, {start: 0, end: 0.01}],
+        cont_02_opacity_in: [1, 0, {start: 0.1, end: 0.3}],
+    },
+    {
+        scrollHeight: 0,
+        heightNumber: 2,
+        target: document.querySelector('.sec-04'),
+        cont01_fisrt_col: document.querySelector('.sec-04 .cont-01 .cont-col:nth-of-type(1)'),
+        cont01_seconed_col: document.querySelector('.sec-04 .cont-01 .cont-col:nth-of-type(2)'),
+        cont01_img: document.querySelector('.sec-04 .cont-01 .cont-col:nth-of-type(2) .cont-img img'),
+        cont02_fisrt_col: document.querySelector('.sec-04 .cont-02 .cont-col:nth-of-type(1)'),
+        cont02_seconed_col: document.querySelector('.sec-04 .cont-02 .cont-col:nth-of-type(2)'),
+        cont02_img: document.querySelector('.sec-04 .cont-02 .cont-col:nth-of-type(1) .cont-img img'),
+        cont01_fisrt_col_opacity_in: [0, 1, {start: 0.3, end: 0.6}],
+        cont01_fisrt_col_transform_in: [10, 0, {start: 0.3, end: 0.6}],
+        cont01_seconed_col_transform_in: [50, 0, {start: 0.3, end: 0.6}],
+        cont01_img_scale_in: [1.5, 1, {start: 0.3, end: 0.6}],
+        cont02_fisrt_col_transform_in: [50, 0, {start: 0.5, end: 0.8}],
+        cont02_seconed_col_transform_in: [10, 0, {start: 0.5, end: 0.8}],
+        cont02_seconed_col_opacity_in: [0, 1, {start: 0.5, end: 0.8}],
+        cont02_img_scale_in: [1.5, 1, {start: 0.5, end: 0.8}],
+    }
 ];
 
 const playSceneAnimation = () => {
@@ -48,13 +86,18 @@ const playSceneAnimation = () => {
     switch(currentScene) {
         case 0:
             break;
-        case 1:
+        case 1: // 상단부터 
+            changePositionElem(currentSceneInfo.target, 'fixed');
             currentSceneInfo.background_cover.style.opacity = getPartAnimationValue(currentSceneInfo.background_cover_opacity_in, currentYOffset);
             currentSceneInfo.background_cover.style.transform = `translate3d(0, 0, 0) scale(${getPartAnimationValue(currentSceneInfo.background_cover_scale_in, currentYOffset)}, 1)`;
             currentSceneInfo.product_img.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.product_img_transform_in, currentYOffset)}vh, 0) scale(${getPartAnimationValue(currentSceneInfo.product_img_scale_in, currentYOffset)})`;
 
-            scrollRatio > 0.15 ? currentSceneInfo.product.classList.add('active', 'fixed') : currentSceneInfo.product.classList.remove('active', 'fixed')
-   
+            if(scrollRatio > 0.15) {
+                currentSceneInfo.product.classList.add('active', 'fixed');
+            } else {
+                currentSceneInfo.product.classList.remove('active', 'fixed');
+            }
+
             if(scrollRatio > 0.4) {
                 currentSceneInfo.cont.classList.add('active', 'fixed');
                 currentSceneInfo.product_img.style.transform = `translate3d(0, 0, 0) scale(1) rotate(${getPartAnimationValue(currentSceneInfo.product_img_rotate_in, currentYOffset)}deg)`;
@@ -75,8 +118,18 @@ const playSceneAnimation = () => {
             }
             break;
         case 2:
+            changePositionElem(currentSceneInfo.target, 'fixed');
+            currentSceneInfo.sec_over_bgs.style.width = `${getPartAnimationValue(currentSceneInfo.sec_over_bgs_width_in, currentYOffset)}px`;
+            currentSceneInfo.sec_over_bgs.style.height = `${getPartAnimationValue(currentSceneInfo.sec_over_bgs_height_in, currentYOffset)}px`;
+            currentSceneInfo.sec_over_bgs_01.style.opacity = getPartAnimationValue(currentSceneInfo.sec_over_bgs_01_opacity_in, currentYOffset);
+            currentSceneInfo.sec_over_bgs_02.style.opacity = getPartAnimationValue(currentSceneInfo.sec_over_bgs_02_opacity_in, currentYOffset);
+            currentSceneInfo.sec_over_bgs_03.style.opacity = getPartAnimationValue(currentSceneInfo.sec_over_bgs_03_opacity_in, currentYOffset);
+            currentSceneInfo.sec_over_bgs_01.style.opacity = getPartAnimationValue(currentSceneInfo.sec_over_bgs_01_opacity_out, currentYOffset);
+            currentSceneInfo.cont_01.style.opacity = getPartAnimationValue(currentSceneInfo.cont_01_opacity_in, currentYOffset);
+            currentSceneInfo.cont_02.style.opacity = getPartAnimationValue(currentSceneInfo.cont_02_opacity_in, currentYOffset);
             break;
-        case 3:
+        case 3: // 하단부터
+            console.log('33', );
             break;
         case 4:
             break;
@@ -95,15 +148,38 @@ const playSceneAnimation = () => {
     }
 }
 
-const isElemOverScreen = (elem, triggerDiff) => {
-    const top = elem.getBoundingClientRect().top
-        , { innerHeight } = window;
+const unlockFixedElemAnimation = () => {
+    sceneInfo.forEach((item, index) => {
+        const isScreen = isElemOverScreen(item.target)
+            , scrollRatio = getElemScrollRatio(item.target);
 
-    return top > innerHeight + (triggerDiff || 0);
+        if(!isScreen && scrollRatio > 0) {
+            const prevScentInfo = sceneInfo[index - 1];
+            changePositionElem(prevScentInfo.target, 'unlock');
+        }
+    });
 }
 
-const fixedUnlockAnimation = () => {
+const changePositionElem = (target, type) => {
+    const fixeds = target.querySelectorAll('.fixed');
+    fixeds.forEach(item => {
+        if(type === 'unlock') {
+            const top = item.offsetTop;
+            if(!item.classList.contains('unlock')) {
+                item.classList.add('unlock');
+                item.style.position = 'absolute';
+                item.style.top = 'auto';
+                item.style.bottom = top === 0 ? '0' : `${Math.abs(item.clientTop - item.clientHeight / 2)}px`
+            }
+        }
 
+        if(type === 'fixed') {
+            item.classList.remove('unlock');
+            item.style.position = '';
+            item.style.top = '';
+            item.style.bottom = '';
+        } 
+    });
 }
 
 const sec02Animation = () => {
@@ -126,7 +202,7 @@ const sec02Animation = () => {
 
         sec02_inner.addEventListener('transitionend', () => {
             sec02_inner.style.transform = '';
-        })
+        });
 
         sec02_bg.style.transform = `translate3d(0, -${sec02_top / 40}vh, 0) scale(${1 - sec02_top / sec02_rect.top / 10})`;
     }
@@ -153,6 +229,58 @@ const sec02Animation = () => {
     }
 }
 
+const sec03Animation = () => {
+    const sec03 = document.querySelector('.sec-03')
+        , sec03_top = sec03.offsetTop
+        , sec03_rect = sec03.getBoundingClientRect()
+        , sec03_over_inner = sec03.querySelector('.sec-over-inner');
+        
+    const scroll = () => {
+        if(yOffset >= sec03_top) {
+            sec03_over_inner.classList.add('fixed');
+        } else {
+            sec03_over_inner.classList.remove('fixed');
+        }
+
+        if(window.innerHeight > sec03_rect.top && sec03_rect.top > 0) {
+            sec03_over_inner.classList.add('active');
+            sec03_over_inner.style.top = `${sec03_rect.top}px`;
+            sec03_over_inner.style.height = `${100 - sec03_rect.top / (window.innerHeight) * 100}vh`;
+        }
+    }
+
+    return {
+        scroll: () => scroll()
+    }
+}
+
+const sec04Animation = () => {
+    const sec04 = document.querySelector('.sec-04')
+        , currentIndex = 3
+        , currentYOffset = yOffset - sec04.offsetTop + window.innerHeight
+        , currentSceneInfo = sceneInfo[currentIndex]
+        // , currentYOffset = (yOffset - sec04.offsetTop + window.innerHeight) / sec04.scrollHeight // 윈도우 높이 포함(포함은 상단이 나타났을 때)
+        // , currentYOffset = (yOffset - sec04.offsetTop) / sec04.scrollHeight // 윈도우 높이 불포함 (불포함은 상단이 스크린 상단에 있을때)
+
+    const scroll = () => {
+        if(currentYOffset / sec04.scrollHeight > 0) {
+            currentSceneInfo.cont01_fisrt_col.style.opacity = getPartAnimationValue(currentSceneInfo.cont01_fisrt_col_opacity_in, currentYOffset, currentIndex);
+            currentSceneInfo.cont01_fisrt_col.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont01_fisrt_col_transform_in, currentYOffset, currentIndex)}vh, 0)`;
+            currentSceneInfo.cont01_seconed_col.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont01_seconed_col_transform_in, currentYOffset, currentIndex)}%, 0)`;
+            currentSceneInfo.cont01_img.style.transform = `translate3d(0, 0, 0) scale(${getPartAnimationValue(currentSceneInfo.cont01_img_scale_in, currentYOffset, currentIndex)})`;
+
+            currentSceneInfo.cont02_fisrt_col.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont02_fisrt_col_transform_in, currentYOffset, currentIndex)}%, 0)`;
+            currentSceneInfo.cont02_seconed_col.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont02_seconed_col_opacity_in, currentYOffset, currentIndex)}vh, 0)`;
+            currentSceneInfo.cont02_seconed_col.style.opacity = getPartAnimationValue(currentSceneInfo.cont02_seconed_col_opacity_in, currentYOffset, currentIndex);
+            currentSceneInfo.cont02_img.style.transform = `translate3d(0, 0, 0) scale(${getPartAnimationValue(currentSceneInfo.cont02_img_scale_in, currentYOffset, currentIndex)})`;
+        }
+    }
+
+    return {
+        scroll: () => scroll()
+    }
+}
+
 const scrollLoop = () => {
     const header = document.querySelector('header')
         , direction = getScrollDirection()
@@ -173,8 +301,10 @@ const scrollLoop = () => {
 
     checkSceneAnimation();
     playSceneAnimation();
-    fixedUnlockAnimation();
+    unlockFixedElemAnimation();
     sec02Animation().scroll();
+    sec03Animation().scroll();
+    sec04Animation().scroll();
     progressBarAnimation().scroll();
 }
 
