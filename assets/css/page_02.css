@@ -46,3 +46,10 @@
 .sec-04 .cont-02 .cont-col:nth-of-type(2) {transform: translate(0px, 10vh);width: 500px;opacity: 0;}
 .sec-04 .cont-02 .cont-img img {width: 100%;transform-origin: 50% 80%;transform: scale(1.5, 1.5);}
 .sec-04 .cont-02 .desc {line-height: 1.8;}
+
+.sec-05 .sec-inner {padding: 240px 0;}
+.sec-05 .cont-group {width: 60vw;margin: 0 auto 100px;}
+.sec-05 .tit {transform: translate3d(0, 10vh, 0);opacity: 0;}
+.sec-05 .desc {transform: translate3d(0, 10vh, 0);opacity: 0;display: flex;justify-content: flex-end;line-height: 1.8;}
+.sec-05 .cont-img {position: relative;transform: translate3d(0, 50%, 0);width: 70vw;margin: 0 auto;overflow: hidden;}
+.sec-05 .cont-img img {transform: scale(1.5);width: 100%;}
