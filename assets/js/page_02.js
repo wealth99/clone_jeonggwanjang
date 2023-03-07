@@ -58,20 +58,20 @@ const sceneInfo = [
         scrollHeight: 0,
         heightNumber: 1.5,
         target: document.querySelector('.sec-04'),
-        cont01_fisrt_col: document.querySelector('.sec-04 .cont-01 .cont-col:nth-of-type(1)'),
-        cont01_seconed_col: document.querySelector('.sec-04 .cont-01 .cont-col:nth-of-type(2)'),
-        cont01_img: document.querySelector('.sec-04 .cont-01 .cont-col:nth-of-type(2) .cont-img img'),
-        cont02_fisrt_col: document.querySelector('.sec-04 .cont-02 .cont-col:nth-of-type(1)'),
-        cont02_seconed_col: document.querySelector('.sec-04 .cont-02 .cont-col:nth-of-type(2)'),
-        cont02_img: document.querySelector('.sec-04 .cont-02 .cont-col:nth-of-type(1) .cont-img img'),
-        cont01_fisrt_col_opacity_in: [0, 1, {start: 0.3, end: 0.6}],
-        cont01_fisrt_col_transform_in: [10, 0, {start: 0.3, end: 0.6}],
-        cont01_seconed_col_transform_in: [50, 0, {start: 0.3, end: 0.6}],
-        cont01_img_scale_in: [1.5, 1, {start: 0.3, end: 0.6}],
-        cont02_fisrt_col_transform_in: [50, 0, {start: 0.5, end: 0.8}],
-        cont02_seconed_col_transform_in: [10, 0, {start: 0.6, end: 0.8}],
-        cont02_seconed_col_opacity_in: [0, 1, {start: 0.6, end: 0.8}],
-        cont02_img_scale_in: [1.5, 1, {start: 0.5, end: 0.8}],
+        cont_01_fisrt_col: document.querySelector('.sec-04 .cont-01 .cont-col:nth-of-type(1)'),
+        cont_01_seconed_col: document.querySelector('.sec-04 .cont-01 .cont-col:nth-of-type(2)'),
+        cont_01_img: document.querySelector('.sec-04 .cont-01 .cont-col:nth-of-type(2) .cont-img img'),
+        cont_02_fisrt_col: document.querySelector('.sec-04 .cont-02 .cont-col:nth-of-type(1)'),
+        cont_02_seconed_col: document.querySelector('.sec-04 .cont-02 .cont-col:nth-of-type(2)'),
+        cont_02_img: document.querySelector('.sec-04 .cont-02 .cont-col:nth-of-type(1) .cont-img img'),
+        cont_01_fisrt_col_opacity_in: [0, 1, {start: 0.3, end: 0.6}],
+        cont_01_fisrt_col_transform_in: [10, 0, {start: 0.3, end: 0.6}],
+        cont_01_seconed_col_transform_in: [50, 0, {start: 0.3, end: 0.6}],
+        cont_01_img_scale_in: [1.5, 1, {start: 0.3, end: 0.6}],
+        cont_02_fisrt_col_transform_in: [50, 0, {start: 0.5, end: 0.8}],
+        cont_02_seconed_col_transform_in: [10, 0, {start: 0.7, end: 0.9}],
+        cont_02_seconed_col_opacity_in: [0, 1, {start: 0.7, end: 0.9}],
+        cont_02_img_scale_in: [1.5, 1, {start: 0.5, end: 0.8}],
     },
     {
         scrollHeight: 0,
@@ -87,6 +87,44 @@ const sceneInfo = [
         cont_desc_transform_in: [10, 0, {start: 0.4, end: 0.6}],
         cont_img_transform_in: [50, 0, {start: 0.5, end: 1}],
         cont_img_img_scale_in: [1.5, 1, {start: 0.5, end: 1}]
+    },
+    {
+        scrollHeight: 0,
+        heightNumber: 0.8,
+        target: document.querySelector('.sec-06'),
+        cont_tit: document.querySelector('.sec-06 .tit'),
+        cont_everytime_list: document.querySelector('.sec-06 .hsj-everytime-list'),
+        cont_tit_opacity_in: [0, 1, {start: 0.3, end: 0.5}],
+        cont_tit_transform_in: [10, 0, {start: 0.3, end: 0.5}],
+        cont_everytime_list_opacity_in: [0, 1, {start: 0.6, end: 0.8}],
+        cont_everytime_list_transform_in: [10, 0, {start: 0.6, end: 0.8}]
+    },
+    {
+        scrollHeight: 0,
+        heightNumber: 5,
+        target: document.querySelector('.sec-07'),
+        cont_group: document.querySelector('.sec-07 .cont-group'),
+        cont_01: document.querySelector('.sec-07 .cont-01'),
+        cont_01_inner: document.querySelector('.sec-07 .cont-01 .cont-inner'),
+        cont_01_tit: document.querySelector('.sec-07 .cont-01 .tit'),
+        cont_01_desc: document.querySelector('.sec-07 .cont-01 .desc'),
+        cont_01_over: document.querySelector('.sec-07 .cont-01 .cont-over'),
+        cont_01_over_clipPath_in: [100, 0, {start: 0.0, end: 0.4}],
+        cont_01_tit_opacity_in: [0, 1, {start: 0.2, end: 0.3}],
+        cont_01_tit_transform_in: [20, 0, {start: 0.2, end: 0.3}],
+        cont_01_desc_opacity_in: [0, 1, {start: 0.3, end: 0.4}],
+        cont_01_desc_transform_in: [20, 0, {start: 0.3, end: 0.4}],
+        cont_01_product_img: document.querySelector('.sec-07 .cont-01 .product-group .img'),
+        cont_01_product_over_img: document.querySelector('.sec-07 .cont-01 .product-over .img'),
+        
+        cont_02: document.querySelector('.sec-07 .cont-02'),
+        cont_02_inner: document.querySelector('.sec-07 .cont-02 .cont-inner'),
+        cont_02_tit: document.querySelector('.sec-07 .cont-02 .tit'),
+        cont_02_desc: document.querySelector('.sec-07 .cont-02 .desc'),
+        cont_02_tit_opacity_in: [0, 1, {start: 0.6, end: 0.7}],
+        cont_02_tit_transform_in: [20, 0, {start: 0.6, end: 0.7}],
+        cont_02_desc_opacity_in: [0, 1, {start: 0.7, end: 0.8}],
+        cont_02_desc_transform_in: [20, 0, {start: 0.7, end: 0.8}],
     }
 ];
 
@@ -260,6 +298,10 @@ const sec03Animation = () => {
             sec03_over_inner.classList.add('active');
             sec03_over_inner.style.top = `${sec03_rect.top}px`;
             sec03_over_inner.style.height = `${100 - sec03_rect.top / (window.innerHeight) * 100}vh`;
+        } else {
+            if(sec03_over_inner.classList.contains('active')) {
+                sec03_over_inner.style.height = '100vh';
+            }
         }
     }
 
@@ -274,18 +316,18 @@ const sec04Animation = () => {
         , currentYOffset = yOffset - sec04.offsetTop + window.innerHeight
         , currentSceneInfo = sceneInfo[currentIndex]
         // , currentYOffset = (yOffset - sec04.offsetTop + window.innerHeight) / sec04.scrollHeight // 윈도우 높이 포함(포함은 상단이 나타났을 때)
-        // , currentYOffset = (yOffset - sec04.offsetTop) / sec04.scrollHeight // 윈도우 높이 불포함 (불포함은 상단이 스크린 상단에 있을때)
+        // , currentYOffset = yOffset >= sec07.offsetTop // 윈도우 높이 불포함 (불포함은 상단이 스크린 상단에 있을때)
 
     const scroll = () => {
         if(currentYOffset / sec04.scrollHeight > 0) {
-            currentSceneInfo.cont01_fisrt_col.style.opacity = getPartAnimationValue(currentSceneInfo.cont01_fisrt_col_opacity_in, currentYOffset, currentIndex);
-            currentSceneInfo.cont01_fisrt_col.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont01_fisrt_col_transform_in, currentYOffset, currentIndex)}vh, 0)`;
-            currentSceneInfo.cont01_seconed_col.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont01_seconed_col_transform_in, currentYOffset, currentIndex)}%, 0)`;
-            currentSceneInfo.cont01_img.style.transform = `translate3d(0, 0, 0) scale(${getPartAnimationValue(currentSceneInfo.cont01_img_scale_in, currentYOffset, currentIndex)})`;
-            currentSceneInfo.cont02_fisrt_col.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont02_fisrt_col_transform_in, currentYOffset, currentIndex)}%, 0)`;
-            currentSceneInfo.cont02_seconed_col.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont02_seconed_col_transform_in, currentYOffset, currentIndex)}vh, 0)`;
-            currentSceneInfo.cont02_seconed_col.style.opacity = getPartAnimationValue(currentSceneInfo.cont02_seconed_col_opacity_in, currentYOffset, currentIndex);
-            currentSceneInfo.cont02_img.style.transform = `translate3d(0, 0, 0) scale(${getPartAnimationValue(currentSceneInfo.cont02_img_scale_in, currentYOffset, currentIndex)})`;
+            currentSceneInfo.cont_01_fisrt_col.style.opacity = getPartAnimationValue(currentSceneInfo.cont_01_fisrt_col_opacity_in, currentYOffset, currentIndex);
+            currentSceneInfo.cont_01_fisrt_col.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_01_fisrt_col_transform_in, currentYOffset, currentIndex)}vh, 0)`;
+            currentSceneInfo.cont_01_seconed_col.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_01_seconed_col_transform_in, currentYOffset, currentIndex)}%, 0)`;
+            currentSceneInfo.cont_01_img.style.transform = `translate3d(0, 0, 0) scale(${getPartAnimationValue(currentSceneInfo.cont_01_img_scale_in, currentYOffset, currentIndex)})`;
+            currentSceneInfo.cont_02_fisrt_col.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_02_fisrt_col_transform_in, currentYOffset, currentIndex)}%, 0)`;
+            currentSceneInfo.cont_02_seconed_col.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_02_seconed_col_transform_in, currentYOffset, currentIndex)}vh, 0)`;
+            currentSceneInfo.cont_02_seconed_col.style.opacity = getPartAnimationValue(currentSceneInfo.cont_02_seconed_col_opacity_in, currentYOffset, currentIndex);
+            currentSceneInfo.cont_02_img.style.transform = `translate3d(0, 0, 0) scale(${getPartAnimationValue(currentSceneInfo.cont_02_img_scale_in, currentYOffset, currentIndex)})`;
         }
     }
 
@@ -302,7 +344,6 @@ const sec05Animation = () => {
 
     const scroll = () => {
         if(currentYOffset / sec05.scrollHeight > 0) {
-
             currentSceneInfo.cont_tit.style.opacity = getPartAnimationValue(currentSceneInfo.cont_tit_opacity_in, currentYOffset, currentIndex);
             currentSceneInfo.cont_tit.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_tit_transform_in, currentYOffset, currentIndex)}vh, 0)`;
             currentSceneInfo.cont_desc.style.opacity = getPartAnimationValue(currentSceneInfo.cont_desc_opacity_in, currentYOffset, currentIndex);
@@ -313,6 +354,117 @@ const sec05Animation = () => {
     }
 
     return {
+        scroll: () => scroll()
+    }
+}
+
+const sec06Animation = () => {
+    const sec06 = document.querySelector('.sec-06')
+        , currentIndex = 5
+        , currentYOffset = yOffset - sec06.offsetTop + window.innerHeight
+        , currentSceneInfo = sceneInfo[currentIndex];
+
+    const scroll = () => {
+        if(currentYOffset / sec06.scrollHeight > 0) {
+            currentSceneInfo.cont_tit.style.opacity = getPartAnimationValue(currentSceneInfo.cont_tit_opacity_in, currentYOffset, currentIndex);
+            currentSceneInfo.cont_tit.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_tit_transform_in, currentYOffset, currentIndex)}vh, 0)`;
+            currentSceneInfo.cont_everytime_list.style.opacity = getPartAnimationValue(currentSceneInfo.cont_everytime_list_opacity_in, currentYOffset, currentIndex);
+            currentSceneInfo.cont_everytime_list.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_everytime_list_transform_in, currentYOffset, currentIndex)}vh, 0)`;
+        }
+    }
+
+    return {
+        scroll: () => scroll()
+    }
+}
+
+const sec07Animation = () => {
+    const sec07 = document.querySelector('.sec-07')
+        , currentIndex = 6
+        , currentYOffset = yOffset - sec07.offsetTop + window.innerHeight
+        , currentSceneInfo = sceneInfo[currentIndex]
+        
+    const init = () => {
+        currentSceneInfo.cont_01.style.height = `${window.innerHeight * 3}px`;
+        currentSceneInfo.cont_01_over.style.clipPath = 'inset(100% 0 0 0)';
+        currentSceneInfo.cont_01_tit.style.opacity = '0';
+        currentSceneInfo.cont_01_tit.style.transform = `translate3d(0, 20%, 0)`;
+        currentSceneInfo.cont_01_desc.style.opacity = '0';
+        currentSceneInfo.cont_01_desc.style.transform = `translate3d(0, 20%, 0)`;
+        currentSceneInfo.cont_01_product_img.style.transform = `translate3d(0, -40vh, 0)`;
+        currentSceneInfo.cont_01_product_img.style.height = '100%';
+        currentSceneInfo.cont_01_product_over_img.style.transform = `translate3d(0, -40vh, 0)`;
+        currentSceneInfo.cont_01_product_over_img.style.height = '100%';
+
+        currentSceneInfo.cont_02.style.height = `${window.innerHeight * 2}px`;
+        currentSceneInfo.cont_02_tit.style.opacity = '0';
+        currentSceneInfo.cont_02_tit.style.transform = `translate3d(0, 20%, 0)`;
+        currentSceneInfo.cont_02_desc.style.opacity = '0';
+        currentSceneInfo.cont_02_desc.style.transform = `translate3d(0, 20%, 0)`;
+    }
+
+    const scroll = () => {
+        if(currentYOffset / sec07.scrollHeight > 0) {
+            const scrollRatio = currentYOffset / currentSceneInfo.scrollHeight;
+            
+            if(scrollRatio > 0.0 && scrollRatio < 0.2) {
+                currentSceneInfo.cont_01_product_img.style.height = `${100 - (scrollRatio / 0.2) * 60}%`
+                currentSceneInfo.cont_01_product_img.style.transform = `translate3d(0, -${(100 - (scrollRatio / 0.2) * 100) / 2.5}vh, 0)`;
+                currentSceneInfo.cont_01_product_over_img.style.transform = `translate3d(0, -${(100 - (scrollRatio / 0.2) * 100) / 2.5}vh, 0)`;
+            } else {
+                currentSceneInfo.cont_01_product_img.style.height = '40%';
+                currentSceneInfo.cont_01_product_img.style.transform = 'translate3d(0, 0, 0)';
+                currentSceneInfo.cont_01_product_over_img.style.transform = 'translate3d(0, 0, 0)';
+            }
+        }
+
+        if(yOffset >= sec07.offsetTop) {
+            const prevScrollHeight = getPrevScrollHeight()
+                , currentYOffset = yOffset - prevScrollHeight
+                , scrollRatio = currentYOffset / currentSceneInfo.scrollHeight;
+
+            currentSceneInfo.cont_01_inner.classList.add('fixed');
+            currentSceneInfo.cont_01_over.style.clipPath = `inset(${getPartAnimationValue(currentSceneInfo.cont_01_over_clipPath_in, currentYOffset)}% 0 0 0)`;
+            currentSceneInfo.cont_01_tit.style.opacity = getPartAnimationValue(currentSceneInfo.cont_01_tit_opacity_in, currentYOffset);
+            currentSceneInfo.cont_01_tit.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_01_tit_transform_in, currentYOffset)}%, 0)`;
+            currentSceneInfo.cont_01_desc.style.opacity = getPartAnimationValue(currentSceneInfo.cont_01_desc_opacity_in, currentYOffset);
+            currentSceneInfo.cont_01_desc.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_01_desc_transform_in, currentYOffset)}%, 0)`;
+
+            currentSceneInfo.cont_02_tit.style.opacity = getPartAnimationValue(currentSceneInfo.cont_02_tit_opacity_in, currentYOffset);
+            currentSceneInfo.cont_02_tit.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_02_tit_transform_in, currentYOffset)}%, 0)`;
+            currentSceneInfo.cont_02_desc.style.opacity = getPartAnimationValue(currentSceneInfo.cont_02_desc_opacity_in, currentYOffset);
+            currentSceneInfo.cont_02_desc.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_02_desc_transform_in, currentYOffset)}%, 0)`;
+
+            if(yOffset >= sec07.offsetTop + currentSceneInfo.cont_02.offsetTop - window.innerHeight) {
+                currentSceneInfo.cont_01_inner.classList.remove('fixed');
+                currentSceneInfo.cont_01_inner.classList.add('unlock');
+                currentSceneInfo.cont_01_inner.style.top = 'auto';
+                currentSceneInfo.cont_01_inner.style.bottom = '0';
+
+                // TODO: 작성
+
+
+            } else {
+                currentSceneInfo.cont_01_inner.classList.add('fixed');
+                currentSceneInfo.cont_01_inner.classList.remove('unlock');
+                currentSceneInfo.cont_01_inner.style.top = '';
+                currentSceneInfo.cont_01_inner.style.bottom = '';
+            }
+
+            if(yOffset >= sec07.offsetTop + currentSceneInfo.cont_02.offsetTop) {
+                currentSceneInfo.cont_02_inner.classList.add('fixed');
+            } else {
+                currentSceneInfo.cont_02_inner.classList.remove('fixed');
+            }
+
+
+        } else {
+            currentSceneInfo.cont_01_inner.classList.remove('fixed');
+        }
+    }
+
+    return {
+        init: () => init(),
         scroll: () => scroll()
     }
 }
@@ -342,6 +494,8 @@ const scrollLoop = () => {
     sec03Animation().scroll();
     sec04Animation().scroll();
     sec05Animation().scroll();
+    sec06Animation().scroll();
+    sec07Animation().scroll();
     progressBarAnimation().scroll();
 }
 
@@ -350,6 +504,7 @@ const loadInit = () => {
     disableScroll()
     setSectionScrollHeight();
     sec02Animation().init();
+    sec07Animation().init();
     progressBarAnimation().init();
 
     const btnTop = document.querySelector('.btn-top button');
