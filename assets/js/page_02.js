@@ -163,7 +163,7 @@ const sceneInfo = [
     },
     {
         scrollHeight: 0,
-        heightNumber: 1.5,
+        heightNumber: 1,
         target: document.querySelector('.sec-09'),
     }
 ];
@@ -232,10 +232,11 @@ const unlockFixedElemAnimation = () => {
 
         if(!isScreen && scrollRatio > 0) {
             const prevScentInfo = sceneInfo[index - 1];
+
+            // TODO 코드 변경해야함 .. 
             if(index !== 8) {
                 changePositionElem(prevScentInfo.target, 'unlock');
             }
-            
         }
     });
 }
@@ -245,20 +246,12 @@ const changePositionElem = (target, type) => {
     fixeds.forEach(item => {
         if(type === 'unlock') {
             const top = item.offsetTop;
-            // console.log($(item), item, top, item.clientTop)
             if(!item.classList.contains('unlock')) {
                 item.classList.add('unlock');
                 item.style.position = 'absolute';
                 item.style.top = 'auto';
-                // item.style.top = `${$(item).position().top}px`;
-                // item.style.bottom = 'auto'
                 item.style.bottom = top === 0 ? '0' : `${Math.abs(item.clientTop - item.clientHeight / 2)}px`;
             }
-
-            // sec08_contGroup.style.position = 'absolute';
-            // sec08_contGroup.style.top = 'auto';
-            // sec08_contGroup.style.bottom = `calc(469px - ${sec08_contGroup.clientHeight / 2}px)`;
-            // sec08_contGroup.style.transform = 'translateX(-50%)';
         }
 
         if(type === 'fixed') {
@@ -586,6 +579,21 @@ const sec08Animation = () => {
     }
 }
 
+const sec09Animation = () => {
+    const sec09 = document.querySelector('.sec-09')
+        , currentIndex = 8
+        , currentYOffset = yOffset - sec09.offsetTop + window.innerHeight
+        , currentSceneInfo = sceneInfo[currentIndex];
+
+    const init = () => {
+
+    } 
+
+    return {
+        init: () => init()
+    }
+}
+
 const scrollLoop = () => {
     const header = document.querySelector('header')
         , direction = getScrollDirection()
@@ -624,6 +632,7 @@ const loadInit = () => {
     sec02Animation().init();
     sec07Animation().init();
     sec08Animation().init();
+    sec09Animation().init();
     progressBarAnimation().init();
 
     const btnTop = document.querySelector('.btn-top button');
