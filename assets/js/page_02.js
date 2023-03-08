@@ -109,22 +109,62 @@ const sceneInfo = [
         cont_01_tit: document.querySelector('.sec-07 .cont-01 .tit'),
         cont_01_desc: document.querySelector('.sec-07 .cont-01 .desc'),
         cont_01_over: document.querySelector('.sec-07 .cont-01 .cont-over'),
+        cont_01_product_img: document.querySelector('.sec-07 .cont-01 .product-group .img'),
+        cont_01_product_over_img: document.querySelector('.sec-07 .cont-01 .product-over .img'),
+        cont_01_over_product_img: document.querySelector('.sec-07 .cont-01 .cont-over .product-group .img'),
+        cont_01_over_product_over_img: document.querySelector('.sec-07 .cont-01 .cont-over .product-over .img'),
         cont_01_over_clipPath_in: [100, 0, {start: 0.0, end: 0.4}],
         cont_01_tit_opacity_in: [0, 1, {start: 0.2, end: 0.3}],
         cont_01_tit_transform_in: [20, 0, {start: 0.2, end: 0.3}],
         cont_01_desc_opacity_in: [0, 1, {start: 0.3, end: 0.4}],
         cont_01_desc_transform_in: [20, 0, {start: 0.3, end: 0.4}],
-        cont_01_product_img: document.querySelector('.sec-07 .cont-01 .product-group .img'),
-        cont_01_product_over_img: document.querySelector('.sec-07 .cont-01 .product-over .img'),
-        
+        cont_01_over_product_img_height_out: [20, 0, {start: 0.42, end: 0.42}],
+        cont_01_product_img_transform_out: [0, 100, {start: 0.42, end: 0.6}],
+        cont_01_product_img_scale_out: [1, 0.8, {start: 0.42, end: 0.6}],
+        cont_01_product_over_img_transform_out: [0, 100, {start: 0.4, end: 0.6}],
+        cont_01_product_over_img_scale_out: [1, 0.8, {start: 0.42, end: 0.6}],
+        cont_01_over_product_img_transform_out: [0, 100, {start: 0.4, end: 0.6}],
+        cont_01_over_product_img_scale_out: [1, 0.8, {start: 0.42, end: 0.6}],
+        cont_01_over_product_over_img_transform_out: [0, 100, {start: 0.4, end: 0.6}],
+        cont_01_over_product_over_img_scale_out: [1, 0.8, {start: 0.42, end: 0.6}],
         cont_02: document.querySelector('.sec-07 .cont-02'),
         cont_02_inner: document.querySelector('.sec-07 .cont-02 .cont-inner'),
         cont_02_tit: document.querySelector('.sec-07 .cont-02 .tit'),
         cont_02_desc: document.querySelector('.sec-07 .cont-02 .desc'),
+        cont_02_product_img: document.querySelector('.sec-07 .cont-02 .product-group .img'),
+        cont_02_product_over_img: document.querySelector('.sec-07 .cont-02 .product-over .product-img .img'),
+        cont_02_product_case_front_img: document.querySelector('.sec-07 .cont-02 .product-over .case-front-img .img'),
+        cont_02_product_case_back_img: document.querySelector('.sec-07 .cont-02 .product-over .case-back-img .img'),
         cont_02_tit_opacity_in: [0, 1, {start: 0.6, end: 0.7}],
         cont_02_tit_transform_in: [20, 0, {start: 0.6, end: 0.7}],
         cont_02_desc_opacity_in: [0, 1, {start: 0.7, end: 0.8}],
         cont_02_desc_transform_in: [20, 0, {start: 0.7, end: 0.8}],
+        cont_02_product_img_opacity_in: [0, 1, {start: 0.42, end: 0.42}],
+        cont_02_product_img_transform_in: [100, 10, {start: 0.4, end: 0.6}],
+        cont_02_product_img_scale_in: [1, 0.8, {start: 0.4, end: 0.6}],
+        cont_02_product_over_img_opacity_in: [0, 1, {start: 0.42, end: 0.42}],
+        cont_02_product_over_img_transform_in: [100, 10, {start: 0.4, end: 0.6}],
+        cont_02_product_over_img_scale_in: [1, 0.8, {start: 0.4, end: 0.6}],
+        cont_02_product_case_front_img_transform_in: [30, 0, {start: 0.5, end: 0.6}],
+        cont_02_product_case_back_img_transform_in: [30, 0, {start: 0.5, end: 0.6}],
+    },
+    {
+        scrollHeight: 0,
+        heightNumber: 2,
+        target: document.querySelector('.sec-08'),
+        background: document.querySelector('.sec-08 .bg'),
+        cont: document.querySelector('.sec-08 .cont-group'),
+        tit_span_01: document.querySelector('.sec-08 .tit span:nth-of-type(1)'),
+        tit_span_02: document.querySelector('.sec-08 .tit span:nth-of-type(2)'),
+        tit_span_01_opacity_in: [0, 1, {start: 0.1, end: 0.2}],
+        tit_span_01_transform_in: [50, 0, {start: 0.1, end: 0.2}],
+        tit_span_02_opacity_in: [0, 1, {start: 0.2, end: 0.3}],
+        tit_span_02_transform_in: [50, 0, {start: 0.2, end: 0.3}]
+    },
+    {
+        scrollHeight: 0,
+        heightNumber: 1.5,
+        target: document.querySelector('.sec-09'),
     }
 ];
 
@@ -181,33 +221,21 @@ const playSceneAnimation = () => {
             currentSceneInfo.cont_01.style.opacity = getPartAnimationValue(currentSceneInfo.cont_01_opacity_in, currentYOffset);
             currentSceneInfo.cont_02.style.opacity = getPartAnimationValue(currentSceneInfo.cont_02_opacity_in, currentYOffset);
             break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
-            break;
-        case 7:
-         break;
-        case 8:
-            break;
-        case 9:
-            break;
-        case 10:
-            break;
     }
 }
 
 const unlockFixedElemAnimation = () => {
     sceneInfo.forEach((item, index) => {
+      
         const isScreen = isElemOverScreen(item.target)
-            , scrollRatio = getElemScrollRatio(item.target);
+        , scrollRatio = getElemScrollRatio(item.target);
 
         if(!isScreen && scrollRatio > 0) {
             const prevScentInfo = sceneInfo[index - 1];
-            changePositionElem(prevScentInfo.target, 'unlock');
+            if(index !== 8) {
+                changePositionElem(prevScentInfo.target, 'unlock');
+            }
+            
         }
     });
 }
@@ -217,12 +245,20 @@ const changePositionElem = (target, type) => {
     fixeds.forEach(item => {
         if(type === 'unlock') {
             const top = item.offsetTop;
+            // console.log($(item), item, top, item.clientTop)
             if(!item.classList.contains('unlock')) {
                 item.classList.add('unlock');
                 item.style.position = 'absolute';
                 item.style.top = 'auto';
+                // item.style.top = `${$(item).position().top}px`;
+                // item.style.bottom = 'auto'
                 item.style.bottom = top === 0 ? '0' : `${Math.abs(item.clientTop - item.clientHeight / 2)}px`;
             }
+
+            // sec08_contGroup.style.position = 'absolute';
+            // sec08_contGroup.style.top = 'auto';
+            // sec08_contGroup.style.bottom = `calc(469px - ${sec08_contGroup.clientHeight / 2}px)`;
+            // sec08_contGroup.style.transform = 'translateX(-50%)';
         }
 
         if(type === 'fixed') {
@@ -401,24 +437,35 @@ const sec07Animation = () => {
         currentSceneInfo.cont_02_tit.style.transform = `translate3d(0, 20%, 0)`;
         currentSceneInfo.cont_02_desc.style.opacity = '0';
         currentSceneInfo.cont_02_desc.style.transform = `translate3d(0, 20%, 0)`;
+
+        currentSceneInfo.cont_02_product_img.style.transform = `translate3d(0, -100vh, 0)`;
+        currentSceneInfo.cont_02_product_img.style.opacity = '0';
+        currentSceneInfo.cont_02_product_over_img.style.transform = `translate3d(0, -100vh, 0)`;
+        currentSceneInfo.cont_02_product_over_img.style.opacity = '0';
+        currentSceneInfo.cont_02_product_case_front_img.style.transform = `translate3d(0, 30%, 0)`;
+        currentSceneInfo.cont_02_product_case_back_img.style.transform = `translate3d(0, 30%, 0)`;
     }
 
     const scroll = () => {
-        if(currentYOffset / sec07.scrollHeight > 0) {
+        if(currentYOffset / sec07.scrollHeight > 0) { // 컨텐츠가 스크린에서 노출 됐을떄 부터
             const scrollRatio = currentYOffset / currentSceneInfo.scrollHeight;
-            
+
             if(scrollRatio > 0.0 && scrollRatio < 0.2) {
-                currentSceneInfo.cont_01_product_img.style.height = `${100 - (scrollRatio / 0.2) * 60}%`
-                currentSceneInfo.cont_01_product_img.style.transform = `translate3d(0, -${(100 - (scrollRatio / 0.2) * 100) / 2.5}vh, 0)`;
-                currentSceneInfo.cont_01_product_over_img.style.transform = `translate3d(0, -${(100 - (scrollRatio / 0.2) * 100) / 2.5}vh, 0)`;
+                currentSceneInfo.cont_01_product_img.style.height = `${100 - (scrollRatio / 0.2) * 60}%` // -> 높이 값을 40에서 0으로
+                currentSceneInfo.cont_01_product_img.style.transform = `translate3d(0, -${(100 - (scrollRatio / 0.2) * 100) / 2.5}vh, 0)`; // -> y값을 40vh 에서 0으로 
+                currentSceneInfo.cont_01_product_over_img.style.transform = `translate3d(0, -${(100 - (scrollRatio / 0.2) * 100) / 2.5}vh, 0)`; // -> y값을 40vh 에서 0으로 
             } else {
                 currentSceneInfo.cont_01_product_img.style.height = '40%';
                 currentSceneInfo.cont_01_product_img.style.transform = 'translate3d(0, 0, 0)';
                 currentSceneInfo.cont_01_product_over_img.style.transform = 'translate3d(0, 0, 0)';
             }
+
+            if(scrollRatio > 0 && scrollRatio < 1) {
+                changePositionElem(currentSceneInfo.target, 'fixed');
+            }
         }
 
-        if(yOffset >= sec07.offsetTop) {
+        if(yOffset >= sec07.offsetTop) { // 컨텐츠가 스크린 상단에 맞닿았을때 부터
             const prevScrollHeight = getPrevScrollHeight()
                 , currentYOffset = yOffset - prevScrollHeight
                 , scrollRatio = currentYOffset / currentSceneInfo.scrollHeight;
@@ -436,15 +483,26 @@ const sec07Animation = () => {
             currentSceneInfo.cont_02_desc.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_02_desc_transform_in, currentYOffset)}%, 0)`;
 
             if(yOffset >= sec07.offsetTop + currentSceneInfo.cont_02.offsetTop - window.innerHeight) {
+                currentSceneInfo.cont_01.style.overflow = 'hidden';
                 currentSceneInfo.cont_01_inner.classList.remove('fixed');
                 currentSceneInfo.cont_01_inner.classList.add('unlock');
                 currentSceneInfo.cont_01_inner.style.top = 'auto';
                 currentSceneInfo.cont_01_inner.style.bottom = '0';
 
-                // TODO: 작성
+                currentSceneInfo.cont_01_product_img.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_01_product_img_transform_out, currentYOffset)}vh, 0) scale(${getPartAnimationValue(currentSceneInfo.cont_01_product_img_scale_out, currentYOffset)})`;
+                currentSceneInfo.cont_01_product_over_img.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_01_product_over_img_transform_out, currentYOffset)}vh, 0) scale(${getPartAnimationValue(currentSceneInfo.cont_01_product_over_img_scale_out, currentYOffset)})`;
+                currentSceneInfo.cont_01_over_product_img.style.height = `${getPartAnimationValue(currentSceneInfo.cont_01_over_product_img_height_out, currentYOffset)}%`;
+                currentSceneInfo.cont_01_over_product_img.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_01_over_product_img_transform_out, currentYOffset)}vh, 0) scale(${getPartAnimationValue(currentSceneInfo.cont_01_over_product_img_scale_out, currentYOffset)})`;
+                currentSceneInfo.cont_01_over_product_over_img.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_01_over_product_over_img_transform_out, currentYOffset)}vh, 0) scale(${getPartAnimationValue(currentSceneInfo.cont_01_over_product_over_img_scale_out, currentYOffset)})`;
 
-
+                currentSceneInfo.cont_02_product_img.style.opacity = getPartAnimationValue(currentSceneInfo.cont_02_product_img_opacity_in, currentYOffset);
+                currentSceneInfo.cont_02_product_img.style.transform = `translate3d(0, -${getPartAnimationValue(currentSceneInfo.cont_02_product_img_transform_in, currentYOffset)}vh, 0) scale(${getPartAnimationValue(currentSceneInfo.cont_02_product_img_scale_in, currentYOffset)})`;
+                currentSceneInfo.cont_02_product_over_img.style.opacity = getPartAnimationValue(currentSceneInfo.cont_02_product_over_img_opacity_in, currentYOffset);
+                currentSceneInfo.cont_02_product_over_img.style.transform = `translate3d(0, -${getPartAnimationValue(currentSceneInfo.cont_02_product_over_img_transform_in, currentYOffset)}vh, 0) scale(${getPartAnimationValue(currentSceneInfo.cont_02_product_over_img_scale_in, currentYOffset)})`;
+                currentSceneInfo.cont_02_product_case_front_img.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_02_product_case_front_img_transform_in, currentYOffset)}%, 0)`;
+                currentSceneInfo.cont_02_product_case_back_img.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.cont_02_product_case_back_img_transform_in, currentYOffset)}%, 0)`;
             } else {
+                currentSceneInfo.cont_01.style.overflow = '';
                 currentSceneInfo.cont_01_inner.classList.add('fixed');
                 currentSceneInfo.cont_01_inner.classList.remove('unlock');
                 currentSceneInfo.cont_01_inner.style.top = '';
@@ -457,9 +515,68 @@ const sec07Animation = () => {
                 currentSceneInfo.cont_02_inner.classList.remove('fixed');
             }
 
-
         } else {
             currentSceneInfo.cont_01_inner.classList.remove('fixed');
+        }
+    }
+
+    return {
+        init: () => init(),
+        scroll: () => scroll()
+    }
+}
+
+const sec08Animation = () => {
+    const sec08 = document.querySelector('.sec-08')
+        , currentIndex = 7
+        , currentYOffset = yOffset - sec08.offsetTop + window.innerHeight
+        , currentSceneInfo = sceneInfo[currentIndex];
+    
+    const init = () => {
+        currentSceneInfo.cont.style.display = 'none';
+        currentSceneInfo.tit_span_01.style.opacity = '0';
+        currentSceneInfo.tit_span_01.style.transform = 'translate3d(0, 50%, 0)';
+        currentSceneInfo.tit_span_02.style.opacity = '0';
+        currentSceneInfo.tit_span_02.style.transform = 'translate3d(0, 50%, 0)';
+    }
+
+    const scroll = () => {
+        const prevScrollHeight = getPrevScrollHeight()
+        if(currentYOffset / sec08.scrollHeight > 0) {
+            const scrollRatio = currentYOffset / currentSceneInfo.scrollHeight;
+       
+            if(scrollRatio > 0 && scrollRatio < 1) {
+                changePositionElem(currentSceneInfo.target, 'fixed');
+            }
+        }
+
+        if(yOffset >= sec08.offsetTop) {
+            const currentYOffset = yOffset - prevScrollHeight
+                , scrollRatio = currentYOffset / currentSceneInfo.scrollHeight;
+
+            currentSceneInfo.background.classList.add('fixed');
+            currentSceneInfo.cont.classList.add('fixed');
+            currentSceneInfo.cont.style.display = 'flex';
+            currentSceneInfo.tit_span_01.style.opacity = getPartAnimationValue(currentSceneInfo.tit_span_01_opacity_in, currentYOffset);
+            currentSceneInfo.tit_span_01.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.tit_span_01_transform_in, currentYOffset)}%, 0)`;
+            currentSceneInfo.tit_span_02.style.opacity = getPartAnimationValue(currentSceneInfo.tit_span_02_opacity_in, currentYOffset);
+            currentSceneInfo.tit_span_02.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.tit_span_02_transform_in, currentYOffset)}%, 0)`;
+        } else {
+            currentSceneInfo.background.classList.remove('fixed');
+            currentSceneInfo.cont.classList.remove('fixed');
+            currentSceneInfo.cont.style.display = 'none';
+        }
+
+        if(yOffset >= sec08.offsetTop + sec08.scrollHeight - window.innerHeight) {
+            currentSceneInfo.background.style.position = 'absolute';
+            currentSceneInfo.background.style.top = 'auto';
+            currentSceneInfo.background.style.bottom = '0';
+            
+            variableAssignIfNotExists("sec08ContOffsetTop", $('.sec-08 .cont-group').offset().top)();
+
+            currentSceneInfo.cont.style.position = 'absolute';
+            currentSceneInfo.cont.style.top = `${sec08ContOffsetTop - getPrevScrollHeight()}px`;
+            currentSceneInfo.cont.style.transform = 'translateX(-50%)';
         }
     }
 
@@ -496,6 +613,7 @@ const scrollLoop = () => {
     sec05Animation().scroll();
     sec06Animation().scroll();
     sec07Animation().scroll();
+    sec08Animation().scroll();
     progressBarAnimation().scroll();
 }
 
@@ -505,6 +623,7 @@ const loadInit = () => {
     setSectionScrollHeight();
     sec02Animation().init();
     sec07Animation().init();
+    sec08Animation().init();
     progressBarAnimation().init();
 
     const btnTop = document.querySelector('.btn-top button');

@@ -86,9 +86,9 @@ const sceneInfo = [
         messageA: document.querySelector('.sec-08 .txt-line:nth-of-type(1)'),
         messageB: document.querySelector('.sec-08 .txt-line:nth-of-type(2)'),
         messageA_opacity_in: [0, 1, {start: 0.1, end: 0.2}],
-        messageA_translateY_in: [10, -50, {start: 0.1, end: 0.2}],
+        messageA_translateY_in: [50, 0, {start: 0.1, end: 0.2}],
         messageB_opacity_in: [0, 1, {start: 0.2, end: 0.3}],
-        messageB_translateY_in: [10, -50, {start: 0.2, end: 0.3}]
+        messageB_translateY_in: [50, 0, {start: 0.2, end: 0.3}]
     }
 ];
 

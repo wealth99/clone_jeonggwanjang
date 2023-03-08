@@ -313,6 +313,15 @@ const getScrollDirection = () => {
     return direction;
 }
 
+const variableAssignIfNotExists = (variableName, value) => {
+    let variableValue = value;
+    return () => {
+        if (typeof window[variableName] === "undefined") {
+            window[variableName] = variableValue;
+        }
+    };
+};
+
 let oldListbox, newListbox;
 const handelClickListbox = (listbox, e) => {
     const $listbox = $(listbox)
