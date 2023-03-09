@@ -70,10 +70,10 @@ header .gnb-menu-item:nth-last-of-type(1) .sub-menu-item {border: none !importan
 
 header .sub-menu-group {position:absolute;top: 100%;left: 0;display: none;justify-content: center;width:100%;opacity: 1;overflow: hidden;}
 header .sub-menu:first-child:nth-last-child(1) .sub-menu-list {display: flex;}
-header .sub-menu:first-child:nth-last-child(1) .sub-menu-item {transform: translate3d(0, 20%, 0);padding: 0 30px;opacity: 0;border-right: 1px solid #e5e5e5;font-weight: 500;transition: opacity .8s cubic-bezier(0.25, 0.46, 0.45, 0.94)}
+header .sub-menu:first-child:nth-last-child(1) .sub-menu-item {transform: translate3d(0, 20%, 0);padding: 0 30px;opacity: 0;border-right: 1px solid #e5e5e5;font-weight: 500;transition: all .8s cubic-bezier(0.25, 0.46, 0.45, 0.94)}
 header .sub-menu:first-child:nth-last-child(1) .sub-menu-item:nth-last-of-type(1) {border: none;}
 header .sub-menu{padding: 0 30px;}
-header .sub-menu:not(:first-child:nth-last-child(1)) {opacity: 0;}
+header .sub-menu:not(:first-child:nth-last-child(1)) {transform: translate3d(0, 20%, 0);opacity: 0;transition: all .8s cubic-bezier(0.25, 0.46, 0.45, 0.94);}
 header .sub-menu:not(:first-child:nth-last-child(1)) > a {color: #888888;}
 header .sub-menu:not(:first-child:nth-last-child(1)) li {margin-top: 20px;transition: opacity .8s cubic-bezier(0.25, 0.46, 0.45, 0.94)}
 header .sub-menu-item .label {position: relative;}
@@ -81,11 +81,6 @@ header .sub-menu-item:hover .label::after {width: 100%;}
 header .sub-menu-item .label::after {content: '';position:absolute; top: 100%;left: 0;width:0;height: 1px;background-color: #000;transition: width .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);}
 header .sub-menu-item .cont-area {margin-top: 30px;}
 header .sub-menu-item .cont-area img {width: 280px;margin-bottom: 30px;}
-
-@keyframes subMenuItemFadeIn {
-    0% {transform: translate3d(0, 20%, 0);opacity: 0;}
-    100% {transform: translate3d(0, 0, 0);opacity: 1;}
-}
 
 header .search-group.active .search-panel {height: 370px;border-top: 1px solid #e8e8e8;}
 header .search-group.active .search-panel form {display: block;}

@@ -163,7 +163,7 @@ const sceneInfo = [
     },
     {
         scrollHeight: 0,
-        heightNumber: 1,
+        heightNumber: 1.2,
         target: document.querySelector('.sec-09'),
     }
 ];
@@ -550,6 +550,7 @@ const sec08Animation = () => {
             currentSceneInfo.background.classList.add('fixed');
             currentSceneInfo.cont.classList.add('fixed');
             currentSceneInfo.cont.style.display = 'flex';
+            currentSceneInfo.cont.style.transform = '';
             currentSceneInfo.tit_span_01.style.opacity = getPartAnimationValue(currentSceneInfo.tit_span_01_opacity_in, currentYOffset);
             currentSceneInfo.tit_span_01.style.transform = `translate3d(0, ${getPartAnimationValue(currentSceneInfo.tit_span_01_transform_in, currentYOffset)}%, 0)`;
             currentSceneInfo.tit_span_02.style.opacity = getPartAnimationValue(currentSceneInfo.tit_span_02_opacity_in, currentYOffset);
@@ -586,7 +587,15 @@ const sec09Animation = () => {
         , currentSceneInfo = sceneInfo[currentIndex];
 
     const init = () => {
-
+        const swiper = new Swiper('.brand-more-swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 30,
+            freeMode: true,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+        });
     } 
 
     return {

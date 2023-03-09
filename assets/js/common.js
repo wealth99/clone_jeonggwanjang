@@ -66,9 +66,13 @@ const setHeaderAnimation = () => {
         const parentElement = item.parentElement
             , childElements = Array.from(parentElement.children)
             , anchor = item.querySelector('a'); 
-    
-        anchor.addEventListener('focus', event => hoverGnbMenuAnimation(event, item, childElements));
-        item.addEventListener('mouseover', event => hoverGnbMenuAnimation(event, item, childElements));
+
+        anchor.addEventListener('focus', event => {
+            hoverGnbMenuAnimation(event, item, childElements);
+        });
+        item.addEventListener('mouseover', event => {
+            hoverGnbMenuAnimation(event, item, childElements);
+        });
     });
 
     // gnb sub ----------------------------------------------------------------
@@ -77,13 +81,12 @@ const setHeaderAnimation = () => {
 
         anchor.addEventListener('focus', event => hoverSubMenuAnimation(event, item, 'focus'));
         item.addEventListener('mouseover', (event) => hoverSubMenuAnimation(event, item));
-
         item.addEventListener('mouseout', (event) => {
             const subMenuGroup = item.closest('.sub-menu-group')
                 , subMenuItems = subMenuGroup.querySelectorAll('.sub-menu-item');
 
-            subMenuItems.forEach(elem => elem.style.opacity = '');
-            event.currentTarget.style.opacity = '';
+            subMenuItems.forEach(elem => elem.style.opacity = '1');
+            event.currentTarget.style.opacity = '1';
         });
     });
 }
@@ -100,29 +103,27 @@ const hoverGnbMenuAnimation = (event, target, childElements) => {
     }
 
     childElements.forEach(item => {
-        item.classList.remove('active');
-        item.style.opacity = '0.4';
+        if(item === target) {
+            target.classList.add('active');
+            target.style.opacity = '1';
+        } else {
+            item.classList.remove('active');
+            item.style.opacity = '0.4';
+            removeSubMenuAnmation(item);
+        }
     });
 
-    target.classList.add('active');
-    target.style.opacity = '1';
-
-    if(!target.querySelector('.sub-menu-group')) {
-        gnbBg.style.height = 0;
-        gnbDimmed.classList.remove('active');
-        return
-    }
-
-    gnbDimmed.classList.add('active');
-    gnbBg.style.height = target.querySelector('.sub-menu-group').getBoundingClientRect().height  + 'px';
-    
-    if(event.target.classList.contains('gnb-btn')) {
-        removeSubMenuAnmation(target);
-
+    if(target.querySelector('.sub-menu-group')) {
+        gnbDimmed.classList.add('active');
+        gnbBg.style.height = target.querySelector('.sub-menu-group').getBoundingClientRect().height  + 'px';
+        
         let timer = setTimeout(() => {
             parseInt(gnbBg.style.height, 10) > 0 && showSubMenuAnimation(target);
             clearTimeout(timer);
         }, 300);
+    } else {
+        gnbBg.style.height = 0;
+        gnbDimmed.classList.remove('active');
     }
 }
 
@@ -130,20 +131,39 @@ const showSubMenuAnimation = (target) => {
     const subMenuGroup = target.querySelector('.sub-menu-group')
         , subMenus = subMenuGroup.querySelectorAll('.sub-menu')
         , subLen = subMenus.length
-        , animate = (delay) => `subMenuItemFadeIn 0.5s ${delay}s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+        , animate = (item, delay) => {
+            let itemr = setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translate3d(0, 0%, 0)';
+                clearTimeout(itemr);
+            }, delay);
+        }
 
     let delay = 0;
     if(subLen === 1) {
         const subMenuItems = subMenus[0].querySelectorAll('.sub-menu-item');
         subMenuItems.forEach(item => {
-            item.style.animation = animate(delay);
-            delay += 0.2;
+            delay += 100;
+            animate(item, delay);
         });
     } else {
         subMenus.forEach(item => {
-            item.style.animation = animate(delay);
-            delay += 0.2;
+            delay += 100;
+            animate(item, delay);
         });
+    }
+}
+
+const hoverSubMenuAnimation = (event, item, type = null) => {
+    const subMenuGroup = item.closest('.sub-menu-group')
+        , subMenuItems = subMenuGroup.querySelectorAll('.sub-menu-item');
+
+    if(type === 'focus') {
+        subMenuItems.forEach(elem => elem.style.opacity = '0.4');
+        event.currentTarget.parentElement.style.opacity = '1';
+    } else {
+        subMenuItems.forEach(elem => elem.style.opacity = '0.4');
+        event.currentTarget.style.opacity = '1';
     }
 }
 
@@ -157,30 +177,17 @@ const removeSubMenuAnmation = (target) => {
         if(subLen === 1) {
             const subMenuItems = subMenus[0].querySelectorAll('.sub-menu-item');
             subMenuItems.forEach(item =>  {
-                item.style.animation = '';
+                item.style.transform = '';
                 item.style.opacity = ''
             });
             return;
         }
 
         subMenus.forEach(item => {
-            item.style.animation = '';
+            item.style.transform = '';
             item.style.opacity = ''
         });
     });
-}
-
-const hoverSubMenuAnimation = (event, item, type = null) => {
-    const subMenuGroup = item.closest('.sub-menu-group')
-        , subMenuItems = subMenuGroup.querySelectorAll('.sub-menu-item');
-
-    if(type === 'focus') {
-        subMenuItems.forEach(elem => elem.style.setProperty('opacity', '0.4', 'important'))
-        event.currentTarget.parentElement.style.setProperty('opacity', '1', 'important');
-    } else {
-        subMenuItems.forEach(elem => elem.style.setProperty('opacity', '0.4', 'important'))
-        event.currentTarget.style.setProperty('opacity', '1', 'important');
-    }
 }
 
 const handleSearchGroupClick = (event) => {
