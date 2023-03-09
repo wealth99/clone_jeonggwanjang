@@ -2,7 +2,6 @@ let yOffset;
 let lastScrollY = 0;
 let ticking = false;
 let isScrollable = false;
-
 const sceneInfo = [
     {
         // sec 01
@@ -36,6 +35,7 @@ const sceneInfo = [
         adLogo_opacity_in: [0, 1, {start: 0.7, end: 0.8}]
     },
     {
+        // sec 03
         scrollHeight: 0,
         heightNumber: 4,
         target: document.querySelector('.sec-03'),
@@ -55,6 +55,7 @@ const sceneInfo = [
         cont_02_opacity_in: [1, 0, {start: 0.1, end: 0.3}],
     },
     {
+        // sec 04
         scrollHeight: 0,
         heightNumber: 1.5,
         target: document.querySelector('.sec-04'),
@@ -74,6 +75,7 @@ const sceneInfo = [
         cont_02_img_scale_in: [1.5, 1, {start: 0.5, end: 0.8}],
     },
     {
+        // sec 05
         scrollHeight: 0,
         heightNumber: 1.5,
         target: document.querySelector('.sec-05'),
@@ -89,6 +91,7 @@ const sceneInfo = [
         cont_img_img_scale_in: [1.5, 1, {start: 0.5, end: 1}]
     },
     {
+        // sec 06
         scrollHeight: 0,
         heightNumber: 0.8,
         target: document.querySelector('.sec-06'),
@@ -100,6 +103,7 @@ const sceneInfo = [
         cont_everytime_list_transform_in: [10, 0, {start: 0.6, end: 0.8}]
     },
     {
+        // sec 07
         scrollHeight: 0,
         heightNumber: 5,
         target: document.querySelector('.sec-07'),
@@ -149,6 +153,7 @@ const sceneInfo = [
         cont_02_product_case_back_img_transform_in: [30, 0, {start: 0.5, end: 0.6}],
     },
     {
+        // sec 08
         scrollHeight: 0,
         heightNumber: 2,
         target: document.querySelector('.sec-08'),
@@ -162,12 +167,14 @@ const sceneInfo = [
         tit_span_02_transform_in: [50, 0, {start: 0.2, end: 0.3}]
     },
     {
+        // sec 09
         scrollHeight: 0,
         heightNumber: 1.2,
         target: document.querySelector('.sec-09'),
     }
 ];
 
+// TODO: 코드 수정해야함 - 1
 const playSceneAnimation = () => {
     const currentScene = getCurrentScene()
         , prevScrollHeight = getPrevScrollHeight()
@@ -233,7 +240,7 @@ const unlockFixedElemAnimation = () => {
         if(!isScreen && scrollRatio > 0) {
             const prevScentInfo = sceneInfo[index - 1];
 
-            // TODO 코드 변경해야함 .. 
+            // TODO: 코드 수정해야함 - 2
             if(index !== 8) {
                 changePositionElem(prevScentInfo.target, 'unlock');
             }
@@ -603,6 +610,7 @@ const sec09Animation = () => {
     }
 }
 
+// TODO: 스크롤 고속으로 이동할 경우 버그 발생.. 
 const scrollLoop = () => {
     const header = document.querySelector('header')
         , direction = getScrollDirection()

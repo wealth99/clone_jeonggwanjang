@@ -7,11 +7,13 @@ const preventDefaultForScrollKeys = (e) => {
         return false;
     }
 }
+
 try {
     window.addEventListener("test", null, Object.defineProperty({}, 'passive', {
       get: function () { supportsPassive = true; }
     }));
 } catch(e) {}
+
 const wheelOpt = supportsPassive ? { passive: false } : false;
 const wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
 
@@ -329,6 +331,54 @@ const variableAssignIfNotExists = (variableName, value) => {
     };
 };
 
+const durationScrollTo = (startY, duration = 800) => {
+    let start = null;
+    const currntY = window.pageYOffset;
+    const distance = startY - currntY;
+
+    window.requestAnimationFrame(step);
+
+    function step(timestamp) {
+        if(!start) start = timestamp;
+
+        const progress = timestamp - start; 
+        window.scrollTo(0, easeInOutCubic(progress, currntY, distance, duration));
+        if (progress < duration) window.requestAnimationFrame(step);
+    }
+}
+
+const easeInOutCubic = (t, b, c, d) => {
+    t /= d / 2;
+    if(t < 1) return c / 2 * t * t * t + b;
+
+    t -= 2;
+    return c / 2 * (t * t * t + 2) + b;
+}
+
+const progressBarAnimation = () => {
+    const btnTop = document.querySelector('.btn-top')
+        , bar = document.querySelector('.circle-progress .bar')
+        , radius = 54
+        , circumference = 2 * Math.PI * radius
+
+    const init = () => {
+        bar.style.strokeDasharray = circumference;
+    }
+
+    const scroll = () => {
+        const pageRatio = getPageRatio() / 100
+            , dashoffset = circumference * (1 - pageRatio);
+        
+        yOffset >= window.innerHeight * 2 ? btnTop.classList.add('active') : btnTop.classList.remove('active')
+        bar.style.strokeDashoffset = dashoffset;
+    }
+
+    return {
+        init: () => init(),
+        scroll: () => scroll()
+    }
+}
+
 let oldListbox, newListbox;
 const handelClickListbox = (listbox, e) => {
     const $listbox = $(listbox)
@@ -429,54 +479,6 @@ const changeListboxStatus = (target) => {
     $listboxList.attr('tabindex', '-1').focus();
 
     $button.text($target.text());
-}
-
-const durationScrollTo = (startY, duration = 800) => {
-    let start = null;
-    const currntY = window.pageYOffset;
-    const distance = startY - currntY;
-
-    window.requestAnimationFrame(step);
-
-    function step(timestamp) {
-        if(!start) start = timestamp;
-
-        const progress = timestamp - start; 
-        window.scrollTo(0, easeInOutCubic(progress, currntY, distance, duration));
-        if (progress < duration) window.requestAnimationFrame(step);
-    }
-}
-
-const easeInOutCubic = (t, b, c, d) => {
-    t /= d / 2;
-    if(t < 1) return c / 2 * t * t * t + b;
-
-    t -= 2;
-    return c / 2 * (t * t * t + 2) + b;
-}
-
-const progressBarAnimation = () => {
-    const btnTop = document.querySelector('.btn-top')
-        , bar = document.querySelector('.circle-progress .bar')
-        , radius = 54
-        , circumference = 2 * Math.PI * radius
-
-    const init = () => {
-        bar.style.strokeDasharray = circumference;
-    }
-
-    const scroll = () => {
-        const pageRatio = getPageRatio() / 100
-            , dashoffset = circumference * (1 - pageRatio);
-        
-        yOffset >= window.innerHeight * 2 ? btnTop.classList.add('active') : btnTop.classList.remove('active')
-        bar.style.strokeDashoffset = dashoffset;
-    }
-
-    return {
-        init: () => init(),
-        scroll: () => scroll()
-    }
 }
 
 const readHtml = (url) => fetch(url).then(res => res.text());
