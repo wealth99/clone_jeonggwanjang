@@ -53,6 +53,7 @@ const setHeaderAnimation = () => {
         gnbBg.style.height = 0;
         let itemr = setTimeout(() => {
             !activeElement && header.classList.remove('active');
+            gnbMenuItems.forEach(item => removeSubMenuAnmation(item))
             clearTimeout(itemr);
         }, 300);
     });
