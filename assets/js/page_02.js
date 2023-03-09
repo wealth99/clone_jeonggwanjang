@@ -607,6 +607,8 @@ const scrollLoop = () => {
     const header = document.querySelector('header')
         , direction = getScrollDirection()
         , sec02_inner = document.querySelector('.sec-02 .sec-inner')
+        , btnTop = document.querySelector('.btn-top')
+        , footer = document.querySelector('footer')
 
     // 첫화면 나오기 전까지 스크롤 0, 1 유지
     if(!isScrollable) {
@@ -619,6 +621,12 @@ const scrollLoop = () => {
         })
     } else {
         direction === 'down' ? header.classList.add('hide') : header.classList.remove('hide');
+    }
+
+    if(window.innerHeight > footer.getBoundingClientRect().y) {
+        btnTop.style.position = 'absolute';
+    } else {
+        btnTop.style.position = '';
     }
 
     checkSceneAnimation();
