@@ -100,9 +100,8 @@ const hoverGnbMenuAnimation = (event, target, childElements) => {
         , searchGorup = document.querySelector('.search-group');
 
     if(searchGorup.classList.contains('active')) {
-        const form = searchGorup.querySelector('form');
         searchGorup.classList.remove('active');
-        form.style.opacity = '0';
+        searchGorup.querySelector('form').style.opacity = '0';
     }
 
     childElements.forEach(item => {
@@ -119,14 +118,16 @@ const hoverGnbMenuAnimation = (event, target, childElements) => {
     if(target.querySelector('.sub-menu-group')) {
         gnbDimmed.classList.add('active');
         gnbBg.style.height = target.querySelector('.sub-menu-group').getBoundingClientRect().height  + 'px';
-        
+    } else {
+        gnbBg.style.height = 0;
+        gnbDimmed.classList.remove('active');
+    }
+
+    if(event.target.classList.contains('gnb-btn')) {
         let timer = setTimeout(() => {
             parseInt(gnbBg.style.height, 10) > 0 && showSubMenuAnimation(target);
             clearTimeout(timer);
         }, 300);
-    } else {
-        gnbBg.style.height = 0;
-        gnbDimmed.classList.remove('active');
     }
 }
 
@@ -165,7 +166,8 @@ const hoverSubMenuAnimation = (event, item, type = null) => {
         subMenuItems.forEach(elem => elem.style.opacity = '0.4');
         event.currentTarget.parentElement.style.opacity = '1';
     } else {
-        subMenuItems.forEach(elem => elem.style.opacity = '0.4');
+        console.log('hoverSubMenuAnimation');
+        subMenuItems.forEach(elem => elem.style.setProperty('opacity', '0.4', 'important'));
         event.currentTarget.style.opacity = '1';
     }
 }
