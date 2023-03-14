@@ -166,7 +166,6 @@ const hoverSubMenuAnimation = (event, item, type = null) => {
         subMenuItems.forEach(elem => elem.style.opacity = '0.4');
         event.currentTarget.parentElement.style.opacity = '1';
     } else {
-        console.log('hoverSubMenuAnimation');
         subMenuItems.forEach(elem => elem.style.setProperty('opacity', '0.4', 'important'));
         event.currentTarget.style.opacity = '1';
     }
@@ -487,8 +486,8 @@ const changeListboxStatus = (target) => {
 const readHtml = (url) => fetch(url).then(res => res.text());
 
 window.addEventListener('DOMContentLoaded', () => {
-    const headerLoad = readHtml('../pages/include/header.html');
-    const footerLoad = readHtml('../pages/include/footer.html');
+    const headerLoad = readHtml('../../pages/include/header.html');
+    const footerLoad = readHtml('../../pages/include/footer.html');
 
     headerLoad.then(html => {
         document.querySelector('header').insertAdjacentHTML('beforeend', html);
