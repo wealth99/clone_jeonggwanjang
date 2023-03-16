@@ -1,0 +1,69 @@
+html.has-scroll-smooth  {position: fixed;top: 0;left: 0;right: 0;bottom: 0;overflow: hidden;}
+.smooth-scroll {will-change: transform, opacity;perspective: 1px;}
+
+.sec {position: relative;min-height: 100vh;transform: translate3d(0, 0, 0);will-change: transform;perspective: 1px;}
+.sec:not(.sec-01) .sec-inner .cont-group{transform: translate(-50%, 0)}
+.sec.reverse {opacity: 0}
+.sec.reverse .bg {position: relative;top: -100vh;}
+.sec.seen-sec .cont-group {display: flex;}
+.sec-inner {height: 100%;}
+.sec-inner .bg {position: absolute;top: 0;left: 0;width: 100%;height: 100vh;}
+.sec-inner .bg.fixed {position: fixed;top: 0;left: 0;}
+.sec-inner .cont-group {position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);display: none;flex-direction: column;width: 60vw;opacity: 0;color: #fff;text-align: center;}
+.sec-inner .subject {letter-spacing: 2px;}
+.sec-inner .subject[data-num*="0"] {position: relative;}
+.sec-inner .subject[data-num*="0"]:after {content: attr(data-num);position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);height: 90px;font-size: 70px;opacity: 0.2;}
+
+.sec-01 {height: 100vh;z-index: 100;}
+.sec-01 .bg {background: url(../images/bg-01.jpg) 50% 50% no-repeat;background-size: cover;}
+.sec-01 .cont-group {display: flex;opacity: 1;}
+.sec-01 .subject {position: relative;transform: translate3d(0, 50%, 0);opacity: 0;}
+.sec-01 .page-tit {display: flex;flex-direction: column;margin-top: 40px;line-height: 1.3;}
+.sec-01 .page-tit span {position: relative;transform: translate3d(0, 50%, 0);opacity: 0;}
+
+.sec-01.seen-sec .subject {transform: translate3d(0, 0, 0);opacity: 1;}
+.sec-01.seen-sec .page-tit span {transform: translate3d(0, 0, 0);opacity: 1;}
+
+.sec-02 {z-index: 200;}
+.sec-02 .bg {background: url(../images/bg-02.jpg) 50% 50% no-repeat;background-size: cover;}
+.sec-02 .subject {margin-bottom: 70px;}
+.sec-02 .tit {margin-bottom: 40px;line-height: 1.3;}
+.sec-02 .desc {line-height: 1.5;}
+
+.sec-03 {z-index: 300;}
+.sec-03 .tit {line-height: 1.3;}
+.sec-03 .subject {margin-bottom: 70px;}
+.sec-03 .brand-commitments {position: absolute;top: 0;left: 0;width:100%;height: 100vh;}
+.sec-03 .brand-commitments:nth-of-type(n+2) {opacity: 0;}
+.sec-03 .brand-commitments:nth-of-type(n+2) .subject {margin-bottom: 30px;}
+.sec-03 .brand-commitments:nth-of-type(n+2) .cont-group {text-align: left;}
+.sec-03 .brand-commitments-0 .bg {background: url(../images/bg-03.jpg) 50% 50% no-repeat;background-size: cover;}
+.sec-03 .brand-commitments-1 .bg {background: url(../images/bg-04.jpg) 50% 50% no-repeat;background-size: cover;}
+.sec-03 .brand-commitments-2 .bg {background: url(../images/bg-05.jpg) 50% 50% no-repeat;background-size: cover;}
+.sec-03 .brand-commitments-2 .cont-group {align-items: flex-end;}
+.sec-03 .brand-commitments-2 .subject {margin-right: 19.4vw}
+.sec-03 .brand-commitments-3 .bg {background: url(../images/bg-06.jpg) 50% 50% no-repeat;background-size: cover;}
+
+.sec-04 {z-index: 800;}
+.sec-04 .bg {background: url(../images/bg-07.jpg) 50% 50% no-repeat;background-size: cover;}
+.sec-04 .subject {margin-bottom: 70px;}
+.sec-04 .tit {margin-bottom: 40px;line-height: 1.3;}
+.sec-04 .desc {line-height: 1.5;}
+.sec-04 .personality-list {display: flex;justify-content: space-evenly;margin-top: 100px;}
+.sec-04 .personality-item {display: flex;flex-direction: column;align-items: center;}
+.sec-04 svg {display: block;width: 50px;height: 50px;margin-bottom:20px;}
+
+.sec-05 {z-index: 900;}
+.sec-05 .bg {background: url(../images/bg-08.jpg) 50% 50% no-repeat;background-size: cover;}
+.sec-05 .bg::after {content: '';position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-color: rgba(0,0,0,0.25)}
+.sec-05 .tit {display: flex;flex-direction: column;}
+.sec-05 .tit span {opacity: 0;transform: translate(0px, 50%);}
+.sec-05 .tit span:nth-of-type(1) {margin-bottom: 10px;}
+
+.indicator {position: fixed;top: 50%;left: 30px;transform: translate3d(-140%, -50%, 0);display: flex;align-items: flex-start;flex-direction: column;width: 160px;transition: all .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);z-index: 1000;}
+.indicator.active {transform: translate3d(0, -50%, 0);}
+.indicator button {display: flex;align-items: center;color: #fff;cursor: pointer;}
+.indicator button:focus {outline: 1px solid black;}
+.indicator button::before {content: '';width: 7px;height: 7px;margin-left: 2px;margin-right: 15px;border-radius: 50%;background-color: #fff;}
+.indicator button.active::before {width:12px;height: 12px;margin-left: 0;}
+.indicator button:nth-of-type(n+2) {margin-top: 30px;}

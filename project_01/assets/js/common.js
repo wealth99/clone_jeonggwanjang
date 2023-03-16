@@ -486,8 +486,8 @@ const changeListboxStatus = (target) => {
 const readHtml = (url) => fetch(url).then(res => res.text());
 
 window.addEventListener('DOMContentLoaded', () => {
-    const headerLoad = readHtml('../../pages/include/header.html');
-    const footerLoad = readHtml('../../pages/include/footer.html');
+    const headerLoad = readHtml('../pages/include/header.html');
+    const footerLoad = readHtml('../pages/include/footer.html');
 
     headerLoad.then(html => {
         document.querySelector('header').insertAdjacentHTML('beforeend', html);
