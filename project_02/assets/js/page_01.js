@@ -64,8 +64,6 @@ const sec02Animation = () => {
     tl.to('.sec-02 .cont-group', {duration: .5, display: 'flex'}, 0)
     .to('.sec-02 .cont-group', {duration: .5, opacity: '1', y: '-50%'}, '-=.5')
     .to('.indicator', {duration: .5, x: 0, onUpdate: () => indicatorAnimation(0)}, '-=.3');
-
-    console.log(tl.scrollTrigger)
 }
 
 const sec03Animation = () => {
@@ -143,7 +141,7 @@ const sec04Animation = () => {
     tl.to('.sec-04 .cont-group', {duration: .5, display: 'flex'}, 0)
     .to('.indicator', {duration: .5, x: 0, onUpdate: () => indicatorAnimation(2)}, 0)
     .to('.sec-04 .cont-group', {duration: .5, opacity: '1', y: '-50%'}, '-=.5')
-    .to('.indicator', {duration: .5, x: '-100%', onUpdate: () => indicatorAnimation(2)}, '+=.3')
+    .to('.indicator', {duration: .5, x: '-140%', onUpdate: () => indicatorAnimation(2)}, '+=.3')
 }
 
 const sec05Animation = () => {
@@ -161,7 +159,6 @@ const sec05Animation = () => {
     tl.to('.sec-05 .cont-group', {duration: .5, display: 'flex', opacity: '1', y: '-50%'}, 0)
     .to('.sec-05 .cont-group span:nth-of-type(1)', {duration: .5, opacity: '1', y: '0'}, '+=.3')
     .to('.sec-05 .cont-group span:nth-of-type(2)', {duration: .5, opacity: '1', y: '0'}, '+=.2')
-    // .to('.indicator', {duration: .5, x: 0, onUpdate: () => indicatorAnimation(2)}, '-=.2')
 }
 
 const handleIndicatorClick = () => {
@@ -208,8 +205,6 @@ window.addEventListener('DOMContentLoaded', () => {
     locoScroll.on("scroll", (args) => {
         ScrollTrigger.update();
         document.documentElement.setAttribute('data-direction', args.direction);
-
-        console.log(args.scroll.y / args.limit.y)
 
         btnTopAnimation(args);
         progressBarAnimation(args);

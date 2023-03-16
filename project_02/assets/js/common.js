@@ -370,12 +370,13 @@ const progressBarAnimation = (info) => {
 
 const btnTopAnimation = (info) => {
     const btnTop = document.querySelector('.btn-top')
+        , footerHeight = document.querySelector('footer').clientHeight
         , {limit, scroll} = info
         , progress = scroll.y / limit.y;
 
     progress > 0.2 ? btnTop.classList.add('active') :  btnTop.classList.remove('active');
 
-    if(scroll.y >= 11244) {
+    if(scroll.y >= limit.y - footerHeight) {
         btnTop.style.bottom = `${615 - (limit.y - scroll.y)}px`
     } else {
         btnTop.style.bottom = '';

@@ -1,7 +1,7 @@
 html.has-scroll-smooth  {position: fixed;top: 0;left: 0;right: 0;bottom: 0;overflow: hidden;}
 .smooth-scroll {will-change: transform, opacity;perspective: 1px;}
 
-.sec {position: relative;min-height: 100vh;transform: translate3d(0, 0, 0);will-change: transform;perspective: 1px;}
+.sec {position: relative;height: 100vh;transform: translate3d(0, 0, 0);will-change: transform;perspective: 1px;}
 .sec:not(.sec-01) .sec-inner .cont-group{transform: translate(-50%, 0)}
 .sec.reverse {opacity: 0}
 .sec.reverse .bg {position: relative;top: -100vh;}
