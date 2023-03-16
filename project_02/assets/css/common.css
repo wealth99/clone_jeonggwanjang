@@ -30,6 +30,9 @@ body {font-family: 'Noto Sans KR', 'Shantell Sans', sans-serif;font-weight: 300;
 .fw-700 {font-weight: 700;}
 .fw-900 {font-weight: 900;}
 
+html.has-scroll-smooth  {position: fixed;top: 0;left: 0;right: 0;bottom: 0;overflow: hidden;}
+.smooth-scroll {will-change: transform, opacity;perspective: 1px;}
+
 .wrapper {overflow: hidden;}
 
 header {position: fixed;top: 0;left: 0;display: flex;justify-content: space-between;align-items: center;width: 100%;height: 100px;padding: 0 60px;box-sizing: border-box;transition: background-color .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);z-index: 2000;will-change: transform;}
