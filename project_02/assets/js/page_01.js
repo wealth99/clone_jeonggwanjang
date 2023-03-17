@@ -177,14 +177,22 @@ const handleIndicatorClick = () => {
     })
 }
 
-const handleBtnTopClick = () => {
-    const btnTop = document.querySelector('.btn-top');
+const showHeaderAnimation = () => {
+    const header = document.querySelector('header')
+        , animation = gsap.from(header, { 
+            yPercent: -100,
+            paused: true,
+            duration: .5
+        }).progress(1);
 
-    btnTop.addEventListener('click' , () => {
-        locoScroll.scrollTo('top', {
-            duration: "1000",
-            easing: [0.25, 0.0, 0.35, 1.0],
-        });
+    ScrollTrigger.create({
+        scroller: '.smooth-scroll',
+        start: 'top top',
+        end: document.querySelector('.smooth-scroll').scrollHeight + window.innerHeight,
+        onUpdate: (self) => {
+            self.direction === -1 ? animation.play() : animation.reverse();
+            self.progress > 0.2 ? header.classList.add('whiter') : header.classList.remove('whiter');
+        }
     });
 }
 
@@ -196,6 +204,7 @@ const loadInit = () => {
     sec05Animation();
     handleIndicatorClick();
     handleBtnTopClick();
+    showHeaderAnimation();
 }
 
 window.addEventListener('DOMContentLoaded', () => {
