@@ -199,7 +199,6 @@ const sec07Animation = () => {
             end: '+=200%',
             scrub: true,
             pin: true,
-            markers: true
         }
     });
     
