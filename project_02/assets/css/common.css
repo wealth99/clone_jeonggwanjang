@@ -12,8 +12,9 @@
 @font-face {font-family: 'Shantell Sans'; src: url(../font/ShantellSans-Bold.woff) format("woff"); font-weight: 700; font-style: normal;unicode-range: U+0061-007A, U+0041-005A, U+0030-0039;}
 @font-face {font-family: 'Shantell Sans'; src: url(../font/ShantellSans-ExtraBold.woff) format("woff"); font-weight: 900; font-style: normal;unicode-range: U+0061-007A, U+0041-005A, U+0030-0039;}
 
-body {font-family: 'Noto Sans KR', 'Shantell Sans', sans-serif;font-weight: 300;font-style: normal;}
+body {font-family: 'Noto Sans KR', 'Shantell Sans', sans-serif;font-weight: 400;font-style: normal;}
 
+.fs-00 {font-size: 100px;}
 .fs-01 {font-size: 80px;}
 .fs-02 {font-size: 60px;}
 .fs-03 {font-size: 40px;}
@@ -32,6 +33,7 @@ body {font-family: 'Noto Sans KR', 'Shantell Sans', sans-serif;font-weight: 300;
 
 html.has-scroll-smooth  {position: fixed;top: 0;left: 0;right: 0;bottom: 0;overflow: hidden;}
 .smooth-scroll {will-change: transform, opacity;perspective: 1px;}
+.c-scrollbar {z-index: 5000;}
 
 .wrapper {overflow: hidden;}
 

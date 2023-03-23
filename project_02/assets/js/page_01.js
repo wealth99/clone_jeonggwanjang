@@ -28,7 +28,9 @@ const sec01Animation = () => {
 
     gsap.to('.sec-01 .subject', {duration: 0.5, y: 0, opacity: 1}, '+=.1');
     gsap.to('.sec-01 .page-tit span:nth-of-type(1)', {duration: 0.5, y: 0, opacity: 1}, '-=.2');
-    gsap.to('.sec-01 .page-tit span:nth-of-type(2)', {duration: 0.5, y: 0, opacity: 1}, '-=.3');
+    gsap.to('.sec-01 .page-tit span:nth-of-type(2)', {duration: 0.5, y: 0, opacity: 1, onComplete: () => {
+        locoScroll.start();
+    }}, '-=.3');
 }
 
 const sec02Animation = () => {
@@ -51,7 +53,7 @@ const sec02Animation = () => {
         
     });
  
-    const tl = gsap.timeline({
+    gsap.timeline({
         scrollTrigger: {
             scroller: '.smooth-scroll',
             trigger: '.sec-02',
@@ -59,9 +61,8 @@ const sec02Animation = () => {
             end: '+=100%',
             scrub: true,
         }
-    });
-
-    tl.to('.sec-02 .cont-group', {duration: .5, display: 'flex'}, 0)
+    })
+    .to('.sec-02 .cont-group', {duration: .5, display: 'flex'}, 0)
     .to('.sec-02 .cont-group', {duration: .5, opacity: '1', y: '-50%'}, '-=.5')
     .to('.indicator', {duration: .5, x: 0, onUpdate: () => indicatorAnimation(0)}, '-=.3');
 }
@@ -85,7 +86,7 @@ const sec03Animation = () => {
         
     });
 
-    const tl = gsap.timeline({
+    gsap.timeline({
         scrollTrigger: {
             scroller: '.smooth-scroll',
             trigger: '.sec-03',
@@ -93,9 +94,8 @@ const sec03Animation = () => {
             end: "+=400%", 
             scrub: true,
         }
-    });
-
-    tl.to('.sec-03 .cont-group', {duration: .5, display: 'flex'}, 0)
+    })
+    .to('.sec-03 .cont-group', {duration: .5, display: 'flex'}, 0)
     .to('.indicator', {duration: .5, x: 0, onUpdate: () => indicatorAnimation(1)}, '+=.2')
     .to('.sec-03 .brand-commitments-0 .cont-group', {duration: .5, opacity: '1', y: '-50%'}, '-=.5')
     .to('.sec-03 .brand-commitments-1', {duration: .5, opacity: '1'}, '+=.5')
@@ -106,7 +106,7 @@ const sec03Animation = () => {
     .to('.sec-03 .brand-commitments-2 .cont-group' , {duration: .5, opacity: '1', y: '-50%'}, '-=.1')
     .to('.sec-03 .brand-commitments-3', {duration: .5, opacity: '1'})
     .to('.sec-03 .brand-commitments-3 .cont-group' , {duration: .5, opacity: '1', y: '-50%'}, '-=.1')
-    .to('.indicator', {duration: .5, x: 0, onUpdate: () => indicatorAnimation(1)}, '+=.2')
+    .to('.indicator', {duration: .5, x: 0, onUpdate: () => indicatorAnimation(1)}, '+=.2');
 }
 
 const sec04Animation = () => {
@@ -128,7 +128,7 @@ const sec04Animation = () => {
         pinSpacing: false,
     });
 
-    const tl = gsap.timeline({
+    gsap.timeline({
         scrollTrigger: {
             scroller: '.smooth-scroll',
             trigger: '.sec-04',
@@ -136,16 +136,15 @@ const sec04Animation = () => {
             end: "+=100%", 
             scrub: true,
         }
-    });
-
-    tl.to('.sec-04 .cont-group', {duration: .5, display: 'flex'}, 0)
+    })
+    .to('.sec-04 .cont-group', {duration: .5, display: 'flex'}, 0)
     .to('.indicator', {duration: .5, x: 0, onUpdate: () => indicatorAnimation(2)}, 0)
     .to('.sec-04 .cont-group', {duration: .5, opacity: '1', y: '-50%'}, '-=.5')
-    .to('.indicator', {duration: .5, x: '-140%', onUpdate: () => indicatorAnimation(2)}, '+=.3')
+    .to('.indicator', {duration: .5, x: '-140%', onUpdate: () => indicatorAnimation(2)}, '+=.3');
 }
 
 const sec05Animation = () => {
-    const tl = gsap.timeline({
+    gsap.timeline({
         scrollTrigger: {
             scroller: '.smooth-scroll',
             trigger: '.sec-05',
@@ -154,11 +153,10 @@ const sec05Animation = () => {
             scrub: true,
             pin: true,
         }
-    });
-    
-    tl.to('.sec-05 .cont-group', {duration: .5, display: 'flex', opacity: '1', y: '-50%'}, 0)
+    })
+    .to('.sec-05 .cont-group', {duration: .5, display: 'flex', opacity: '1', y: '-50%'}, 0)
     .to('.sec-05 .cont-group span:nth-of-type(1)', {duration: .5, opacity: '1', y: '0'}, '+=.3')
-    .to('.sec-05 .cont-group span:nth-of-type(2)', {duration: .5, opacity: '1', y: '0'}, '+=.2')
+    .to('.sec-05 .cont-group span:nth-of-type(2)', {duration: .5, opacity: '1', y: '0'}, '+=.2');
 }
 
 const handleIndicatorClick = () => {
@@ -210,6 +208,7 @@ const loadInit = () => {
 window.addEventListener('DOMContentLoaded', () => {
     setLocoScroll();  // 먼저 호출해야함.
     loadInit();
+    locoScroll.stop();
 
     locoScroll.on("scroll", (args) => {
         ScrollTrigger.update();
